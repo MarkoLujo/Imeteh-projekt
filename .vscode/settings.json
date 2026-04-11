@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "eXtremeBasketball.slnx",
+    "dotnet.defaultSolution": "Imeteh-projekt.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
