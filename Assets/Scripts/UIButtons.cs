@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class UIButtons : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    public GameObject pauseMenu;
+
+    public void Quit(){
+        Application.Quit();
+    }
+    public void Restart(){
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+    public void Resume(){
+        pauseMenu.SetActive(false);
+    }
+    public void Settings(){
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
