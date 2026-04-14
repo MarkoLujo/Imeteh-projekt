@@ -6,7 +6,10 @@ public class Throwable : InteractableUnityEventWrapper
 {
     Queue<Vector3> trackedPositions = new Queue<Vector3>();
     bool isGrabbed = false;
-    const int max_stored_positions = 10;
+    public int max_stored_positions = 20;
+    
+    [Range (0,1)]
+    public int throwType = 0;
 
     void Update() {
         if (isGrabbed) { 
@@ -27,19 +30,24 @@ public class Throwable : InteractableUnityEventWrapper
 
     public void Throw(){
         Debug.Log("Thrown");
-        Vector3 vel1;
-        Vector3 vel2;
 
-        int counter = 0;
-        vel1 = trackedPositions.Dequeue();
-        vel2 = vel1;
-        while (trackedPositions.Count > 0 && counter < max_stored_positions) { 
-            vel2 = trackedPositions.Dequeue();
+        if (throwType == 1) {
+            Vector3 vel1;
+            Vector3 vel2;
+
+            int counter = 0;
+            vel1 = trackedPositions.Dequeue();
+            vel2 = vel1;
+            while (trackedPositions.Count > 0 && counter < max_stored_positions)
+            {
+                vel2 = trackedPositions.Dequeue();
+                counter++;
+            }
+
             counter++;
+            if (counter <= 0) counter = 1;
+            GetComponent<Rigidbody>().linearVelocity = vel2 + (vel2 - vel1) * (4.0f/counter);
         }
-        
-
-        GetComponent<Rigidbody>().linearVelocity = vel2 + (vel2-vel1);
 
         isGrabbed = false;
     }
