@@ -15,11 +15,21 @@ public class Throwable : InteractableUnityEventWrapper
     //[Range (0,1)]
     //public int throwType = 0;
 
+    public void ChangeMaxStoredPositions(float value){
+        Debug.Log("Broj uzoraka promijenjeno na: " + (int)value);
+        maxStoredPositions = (int)value;
+    }
+
+    public void ChangePredictAhead(float value){
+        Debug.Log("Predviðanje promijenjeno na: " + (int)value);
+        predictAhead = (int)value;
+    }
+
     void FixedUpdate() {
         if (isGrabbed) { 
             trackedPositions.Enqueue(GetComponent<Rigidbody>().position);
 
-            if (trackedPositions.Count > maxStoredPositions) { 
+            if (trackedPositions.Count > (int)maxStoredPositions) { 
                 trackedPositions.Dequeue();
             }
         }

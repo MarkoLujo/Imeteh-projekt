@@ -14,9 +14,23 @@ public class ThrowableAlternate : InteractableUnityEventWrapper
     [Range (0,1)]
     public float damping = 0.01f;
 
-    //[Range (0,1)]
-    //public int throwType = 0;
+    public bool showSimulatedBall = true;
 
+
+    public void ChangeForceMultiplier(float value){
+        Debug.Log("Sila promijenjena na: " + value);
+        forceMultiplier = value;
+    }
+
+    public void ChangeDamping(float value){
+        Debug.Log("Prigušenje promijenjeno na: " + value);
+        damping = value;
+    }
+
+    public void ChangeSimulatedDisplay(bool value){
+        showSimulatedBall = value;
+    }
+    
     void FixedUpdate() {
         if (isGrabbed) { 
             
@@ -31,6 +45,9 @@ public class ThrowableAlternate : InteractableUnityEventWrapper
     public void Grab() { 
         isGrabbed = true;
         simulatedBall = Instantiate(shadowPrefab, transform.position, transform.rotation);
+        if (!showSimulatedBall) { 
+            simulatedBall.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 
     public void Throw(){
