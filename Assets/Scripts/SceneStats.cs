@@ -1,11 +1,13 @@
 using UnityEngine;
+using TMPro;
 
 public class SceneStats : MonoBehaviour
 {
     public static SceneStats instance;
 
     public int points;
-    public TextMesh scoreDisplay;
+    public TextMeshProUGUI scoreDisplay;
+
 
     private void Start(){
         instance = this;
@@ -14,6 +16,11 @@ public class SceneStats : MonoBehaviour
 
     public void Score() { 
         points++;
-        scoreDisplay.text = points.ToString();
+        int displayPoints = Mathf.Min(points, 99);
+        if (displayPoints < 10){
+            scoreDisplay.text = " " + displayPoints.ToString();
+        } else {
+            scoreDisplay.text = points.ToString();
+        }
     }
 }
