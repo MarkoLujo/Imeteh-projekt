@@ -7,11 +7,23 @@ public class SceneStats : MonoBehaviour
 
     public int points;
     public TextMeshProUGUI scoreDisplay;
+    public TextMeshProUGUI timerDisplay;
+    private float timer;
 
 
     private void Start(){
         instance = this;
         points = 0;
+        timerDisplay.text = "00 : 00";
+    }
+
+    private void Update(){
+        timer += Time.deltaTime;
+
+        int minutes = Mathf.FloorToInt(timer / 60f);
+        int seconds = Mathf.FloorToInt(timer % 60f);
+
+        timerDisplay.text = $"{minutes:00}:{seconds:00}";
     }
 
     public void Score() { 

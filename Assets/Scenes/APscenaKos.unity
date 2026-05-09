@@ -1786,6 +1786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: 0
   scoreDisplay: {fileID: 395317836}
+  timerDisplay: {fileID: 1882396502}
 --- !u!1 &1481916241
 GameObject:
   m_ObjectHideFlags: 0
