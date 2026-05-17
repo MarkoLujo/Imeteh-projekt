@@ -35,13 +35,17 @@ public class BallCreateAndReset : MonoBehaviour
         gripWasHeld = gripHeld;
     }
 
-    void SpawnAndGrabBall()
-    {
+    public void DeleteBall() { 
         // makni staru loptu ako postoji
         if (currentBall != null)
         {
             Destroy(currentBall);
         }
+    }
+
+    void SpawnAndGrabBall()
+    {
+        DeleteBall();
 
         // spawn nove lopte
         currentBall = Instantiate(ballPrefab);

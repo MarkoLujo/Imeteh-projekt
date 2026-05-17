@@ -26,6 +26,10 @@ public class SceneStats : MonoBehaviour
         timerDisplay.text = $"{minutes:00}:{seconds:00}";
     }
 
+    public void ResetTimer() { 
+        timer = 0;
+    }
+
     public void Score() { 
         points++;
         int displayPoints = Mathf.Min(points, 99);

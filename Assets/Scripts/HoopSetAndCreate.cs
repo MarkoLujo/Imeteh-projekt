@@ -133,17 +133,37 @@ currentPreview.transform.position = targetPos;
     }
 }
 
-    void PlaceBasket()
-    {
+    public void DeleteBasket() { 
         /*
-         * Ako već postoji stari koš,
-         * obriši ga
-         */
+        * Ako već postoji stari koš,
+        * obriši ga
+        */
         if (spawnedBasket != null)
         {
             Destroy(spawnedBasket);
         }
+    
+    }
 
+    public void UpdateBasket() {
+        if (spawnedBasket != null)
+        {
+            Transform oldTransform = spawnedBasket.transform;
+            DeleteBasket();
+
+            spawnedBasket = Instantiate(
+                basketPrefab,
+                oldTransform.position,
+                oldTransform.rotation
+            );
+        }
+
+    }
+
+    void PlaceBasket()
+    {
+
+        DeleteBasket();
         /*
          * Spawn pravog koša
          */
