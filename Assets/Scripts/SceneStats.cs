@@ -8,7 +8,7 @@ public class SceneStats : MonoBehaviour
     public int points;
     public TextMeshProUGUI scoreDisplay;
     public TextMeshProUGUI timerDisplay;
-    private float timer;
+    public float timer;
 
 
     private void Start(){
@@ -32,11 +32,14 @@ public class SceneStats : MonoBehaviour
 
     public void Score() { 
         points++;
+        
         int displayPoints = Mathf.Min(points, 99);
         if (displayPoints < 10){
             scoreDisplay.text = " " + displayPoints.ToString();
         } else {
             scoreDisplay.text = points.ToString();
         }
+
+        LevelManager.instance.OnScore();
     }
 }

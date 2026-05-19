@@ -11,9 +11,9 @@ public class HoopSetAndCreate : MonoBehaviour
     public Transform rightControllerTransform;
 
     private GameObject currentPreview;
-    private GameObject spawnedBasket;
+    public GameObject spawnedBasket;
 
-    private bool isPlacing = false;
+    public bool isPlacing = false;
 
     void Update()
     {
@@ -22,34 +22,39 @@ public class HoopSetAndCreate : MonoBehaviour
          * prvi klik -> preview mode
          * drugi klik -> place basket
          */
-        if (OVRInput.GetDown(OVRInput.Button.Three))
+
+        // Pozicija koša se može promijenit samo van levela
+        if (LevelManager.instance.isFreeplay)
         {
+            if (OVRInput.GetDown(OVRInput.Button.Three))
+            {
+                /*
+                 * Ako trenutno NE postavljamo:
+                 * napravi preview
+                 */
+                if (!isPlacing)
+                {
+                    StartPlacement();
+                }
+                /*
+                 * Ako VEĆ postavljamo:
+                 * potvrdi placement
+                 */
+                else
+                {
+                    PlaceBasket();
+                }
+            }
+
             /*
-             * Ako trenutno NE postavljamo:
-             * napravi preview
+             * Ako nema placement moda,
+             * ne radi raycast
              */
             if (!isPlacing)
-            {
-                StartPlacement();
-            }
-            /*
-             * Ako VEĆ postavljamo:
-             * potvrdi placement
-             */
-            else
-            {
-                PlaceBasket();
-            }
+                return;
+
+            UpdatePreview();
         }
-
-        /*
-         * Ako nema placement moda,
-         * ne radi raycast
-         */
-        if (!isPlacing)
-            return;
-
-        UpdatePreview();
     }
 
     void StartPlacement()

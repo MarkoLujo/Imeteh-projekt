@@ -1,3 +1,5 @@
+using System;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 [System.Serializable]
@@ -20,6 +22,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     private void Start(){
         instance = this;
+        CreateUI();
+        ShowUI();
         LoadFreeplay();
     }
 
@@ -30,16 +34,23 @@ public class LevelManager : MonoBehaviour
     public HoopSetAndCreate hoopManager;
     public SceneStats sceneStats;
 
-    public GameObject freeplayUIPrefab;
-    private GameObject freeplayUIObject;
+    public GameObject mainUIPrefab;
+    private GameObject mainUIObject;
+    MainUIControl UIcontrol;
+
     public GameObject buttonTemplate;
 
     public bool isFreeplay;
+    public int currentLevelIndex;
 
     public void uiButtonClick(int index) { 
-        MainUIControl UIcontrol = freeplayUIObject.GetComponent<MainUIControl>();
-        if (UIcontrol.levelUI.activeSelf) { 
-            LoadLevel(index);
+        if (UIcontrol.levelUI.activeSelf) {
+
+            // Level se može zapoèeti samo ako koš postoji i ako se trenutno ne mijenja
+            if (hoopManager.spawnedBasket != null && !hoopManager.isPlacing) { 
+                LoadLevel(index);
+            }
+
         }
         else if (UIcontrol.ballUI.activeSelf) { 
             ballManager.ballPrefab = freeplayBalls[index];
@@ -49,16 +60,28 @@ public class LevelManager : MonoBehaviour
             hoopManager.basketPrefab = freeplayBaskets[index];
             hoopManager.UpdateBasket();
         }
-    
-    
-    
     }
 
+    private void Update(){
+        bool startPressed = OVRInput.GetDown(OVRInput.Button.Start);
 
+        if (startPressed) {
+            if (mainUIObject.activeSelf) { 
+                HideUI();
+            }
+            else{
+                ShowUI();
+            }
+        }
+    }
 
     public void LoadLevel(int index) {
         isFreeplay = false;
-        DestroyFreeplayUI();
+        currentLevelIndex = index;
+        
+        UIcontrol.showInLeveltUI();
+        HideUI();
+
 
         Level newLevel = levels[index];
         ballManager.ballPrefab = newLevel.ballPrefab;
@@ -71,23 +94,30 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    private void DestroyFreeplayUI() { 
-        if (freeplayUIObject != null)
-        {
-            Destroy(freeplayUIObject);
-        }
+    public void ShowUI() { 
+        mainUIObject.SetActive(true);
+        mainUIObject.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(-1,1,0);
+
+    }
+    public void HideUI() { 
+        mainUIObject.SetActive(false);
+
     }
 
     public void LoadFreeplay() {
         isFreeplay = true;
-        DestroyFreeplayUI();
+        ShowUI();
+        UIcontrol.showMainUI();
 
-        freeplayUIObject = Instantiate(freeplayUIPrefab);
-        freeplayUIObject.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + Vector3.left;
+    }
 
-        MainUIControl UIcontrol = freeplayUIObject.GetComponent<MainUIControl>();
+    public void CreateUI() { 
+        mainUIObject = Instantiate(mainUIPrefab);
+        UIcontrol = mainUIObject.GetComponent<MainUIControl>();
+        UIcontrol.showMainUI();
 
-        freeplayUIObject.GetComponent<MainUIControl>().showMainUI();
+        // TODO dodat neke UI slike i/ili opis lopta, levela i koševa na gumbima
+
         for(int i=0; i<levels.Length; i++){
             GameObject newButton = Instantiate(buttonTemplate, UIcontrol.levelUI.transform);
             MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
@@ -110,5 +140,32 @@ public class LevelManager : MonoBehaviour
             buttonScript.manager = this;        
         }
     }
+
+    public void OnScore() {
+        
+        if (!isFreeplay) { 
+            Level currentLevel = levels[currentLevelIndex];
+
+            // Ako je level gotov
+            if (sceneStats.points >= currentLevel.goal.score && (sceneStats.timer <= currentLevel.goal.timeLimit || currentLevel.goal.timeLimit <= 0)) {
+                // TODO neka animacija
+
+                if (currentLevelIndex < levels.Length-1) { 
+                    currentLevelIndex++;
+                    LoadLevel(currentLevelIndex);
+                }
+                else{
+                    LoadFreeplay();
+                }
+            
+            }
+        
+        
+        
+        }
+    
+    
+    }
+
 
 }
