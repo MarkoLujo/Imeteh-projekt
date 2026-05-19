@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.OpenXR.Input;
 
-public class Throwable : InteractableUnityEventWrapper
+public class Throwable : IThrowable
 {
     Queue<Vector3> trackedPositions = new Queue<Vector3>();
     bool isGrabbed = false;
@@ -38,11 +38,11 @@ public class Throwable : InteractableUnityEventWrapper
         }
     }
 
-    public void Grab() { 
+    public override void Grab() { 
         isGrabbed = true;
     }
 
-    public void Throw(){
+    public override void Throw(){
 
         if (trackedPositions.Count > 0 ){
             Vector3 pos1;

@@ -1,7 +1,7 @@
 using Oculus.Interaction;
 using UnityEngine;
 
-public class ThrowableAlternate : InteractableUnityEventWrapper
+public class ThrowableAlternate : IThrowable
 {
     bool isGrabbed = false;
 
@@ -42,7 +42,7 @@ public class ThrowableAlternate : InteractableUnityEventWrapper
         }
     }
 
-    public void Grab() { 
+    public override void Grab() { 
         isGrabbed = true;
         simulatedBall = Instantiate(shadowPrefab, transform.position, transform.rotation);
         if (!showSimulatedBall) { 
@@ -50,7 +50,7 @@ public class ThrowableAlternate : InteractableUnityEventWrapper
         }
     }
 
-    public void Throw(){
+    public override void Throw(){
        
         GetComponent<Rigidbody>().linearVelocity = simulatedBall.GetComponent<Rigidbody>().linearVelocity;
         Destroy(simulatedBall);

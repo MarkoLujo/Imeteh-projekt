@@ -6,8 +6,7 @@ public class BallCreateAndReset : MonoBehaviour
     public GameObject ballPrefab;
     public Transform handTransform;
 
-    [Header("Throw Settings")]
-    public float throwMultiplier = 1.2f;
+
 
     private GameObject currentBall;
     private Rigidbody currentBallRb;
@@ -51,9 +50,10 @@ public class BallCreateAndReset : MonoBehaviour
         currentBall = Instantiate(ballPrefab);
         currentBallRb = currentBall.GetComponent<Rigidbody>();
 
-        // disable physics dok je u ruci
+        // disable physics dok je u ruci - simuliraj metin grab sustav
         currentBallRb.isKinematic = true;
 
+        currentBall.GetComponent<IThrowable>().Grab();
         // attach na ruku
         currentBall.transform.SetParent(handTransform);
         currentBall.transform.localPosition = Vector3.zero;
@@ -71,14 +71,7 @@ public class BallCreateAndReset : MonoBehaviour
 
         // enable physics
         currentBallRb.isKinematic = false;
-
-        // (opcionalno) dodaj “throw feeling”
-        Vector3 velocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
-        Vector3 angularVelocity = OVRInput.GetLocalControllerAngularVelocity(OVRInput.Controller.LTouch);
-
-        currentBallRb.linearVelocity = velocity * throwMultiplier;
-        currentBallRb.angularVelocity = angularVelocity;
-
+        currentBall.GetComponent<IThrowable>().Throw();
         holdingBall = false;
     }
 }
