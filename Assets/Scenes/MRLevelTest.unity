@@ -4240,7 +4240,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - basketPrefab: {fileID: 2813193231336707511, guid: 8376da90f06b64c41a108c2bf3b92ff1, type: 3}
+  - basketPrefab: {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
+    ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
+    goal:
+      score: 1
+      timeLimit: -1
+    title: 
+  - basketPrefab: {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
     goal:
       score: 1
@@ -4254,7 +4260,8 @@ MonoBehaviour:
   ballManager: {fileID: 1538719304}
   hoopManager: {fileID: 861201953}
   sceneStats: {fileID: 794583062}
-  mainUIPrefab: {fileID: 3896340198349204923, guid: a7f7936d49ad7e147bf8a726baf035fc, type: 3}
+  levelSelectBasketPrefabs: {fileID: 1546598353563035920, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
+  levelSelectBaskets: {fileID: 0}
   buttonTemplate: {fileID: 6962244841375797390, guid: ab28f66dff923ea43b76e2a8acd4ed0b, type: 3}
   isFreeplay: 1
   currentLevelIndex: 0
@@ -12646,6 +12653,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2393754622338950748, guid: acca2bbe5d60ad54894468e0bd009147, type: 3}
+      propertyPath: previewPrefab
+      value: 
+      objectReference: {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
     - target: {fileID: 2393754622338950748, guid: acca2bbe5d60ad54894468e0bd009147, type: 3}
       propertyPath: rightControllerTransform
       value: 
