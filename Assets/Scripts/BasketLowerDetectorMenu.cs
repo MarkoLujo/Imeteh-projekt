@@ -6,6 +6,7 @@ public class BasketLowerDetectorMenu : MonoBehaviour
 {
     public string nextSceneName = "NextScene";
     private bool scored = false;
+    public bool exitApp = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +28,17 @@ public class BasketLowerDetectorMenu : MonoBehaviour
         Time.timeScale = 0.3f;
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1f;
-        SceneManager.LoadScene(nextSceneName);
+        if (exitApp) {
+            QuitGame();
+        } else {
+            SceneManager.LoadScene(nextSceneName);
+        }
     }
+
+    void QuitGame()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+
+}
 }

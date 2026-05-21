@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Menu.unity
+    guid: dab20add852f24f46b10a11599176bd8
+  - enabled: 1
+    path: Assets/Scenes/APscenaKos.unity
+    guid: 6ca52d44b1ea65a44872ba68942eeb97
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: de933a8afadc567458ec579144d486ea, type: 2}
