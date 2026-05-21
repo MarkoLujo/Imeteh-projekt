@@ -56,7 +56,7 @@ public class BallCreateAndReset : MonoBehaviour
         currentBall.GetComponent<IThrowable>().Grab();
         // attach na ruku
         currentBall.transform.SetParent(handTransform);
-        currentBall.transform.localPosition = Vector3.zero;
+        currentBall.transform.localPosition = new Vector3(-0.07f,0,0);
         currentBall.transform.localRotation = Quaternion.identity;
 
         holdingBall = true;

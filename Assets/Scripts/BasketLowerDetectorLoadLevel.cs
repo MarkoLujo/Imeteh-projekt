@@ -7,6 +7,7 @@ public class BasketLowerDetectorLoadLevel : MonoBehaviour
     public int levelIndex;
     private bool scored = false;
     public bool exitApp = false;
+    public bool freeplay = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,7 +31,10 @@ public class BasketLowerDetectorLoadLevel : MonoBehaviour
         Time.timeScale = 1f;
         if (exitApp) {
             QuitGame();
-        } else {
+        } else if (freeplay) {
+            LevelManager.instance.LoadFreeplay();
+        }
+        else {
             LevelManager.instance.LoadLevel(levelIndex);
         }
     }

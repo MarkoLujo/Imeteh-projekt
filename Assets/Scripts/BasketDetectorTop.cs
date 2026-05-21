@@ -15,12 +15,15 @@ public class BasketDetectorTop : MonoBehaviour
     private void OnTriggerEnter(Collider collider) {
         if (collider.CompareTag("Lopta")) { 
             isActive = true;
+            Debug.Log("Active!");
         }
     }
 
     private void OnTriggerExit(Collider collider) {
         if (collider.CompareTag("Lopta")) { 
             isActive = false;
+            Debug.Log("Inactive!");
+
         }
     }
 

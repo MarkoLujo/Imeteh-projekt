@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2327987375701645577}
   - component: {fileID: 1911662378730367954}
-  - component: {fileID: 4884526526214949278}
+  - component: {fileID: 6469578412684500577}
   m_Layer: 0
   m_Name: DetectorBottom
   m_TagString: Untagged
@@ -156,7 +156,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1292543, y: 0.3547902, z: 1}
   m_Center: {x: 0.06462717, y: -0.3226049, z: 0}
---- !u!114 &4884526526214949278
+--- !u!114 &6469578412684500577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,11 +165,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3424416938775693018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a28ac35a2c72ec49ae03e87e2b6fb8e, type: 3}
+  m_Script: {fileID: 11500000, guid: fe60140665d22554fbe805cda5bf01bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: APscenaKos
+  levelIndex: 0
   exitApp: 0
+  freeplay: 1
 --- !u!1 &3981392477081848144
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,27 +385,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7c91b7c3ed1ba1b48a7ba582c3cf5faa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c91b7c3ed1ba1b48a7ba582c3cf5faa, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c91b7c3ed1ba1b48a7ba582c3cf5faa, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c91b7c3ed1ba1b48a7ba582c3cf5faa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.59
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c91b7c3ed1ba1b48a7ba582c3cf5faa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.74999994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c91b7c3ed1ba1b48a7ba582c3cf5faa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.548
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c91b7c3ed1ba1b48a7ba582c3cf5faa, type: 3}
       propertyPath: m_LocalRotation.w

@@ -14,6 +14,7 @@ public class BasketDetector : MonoBehaviour
 
         if (transform.parent.GetChild(0).GetComponent<BasketDetectorTop>().isActive && collider.CompareTag("Lopta")){
             SceneStats.instance.Score();
+            Debug.Log("Score");
         }
     }
 }
