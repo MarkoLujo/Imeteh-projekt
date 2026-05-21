@@ -26,7 +26,7 @@ public class HoopSetAndCreate : MonoBehaviour
         // Pozicija koša se može promijenit samo van levela
         if (LevelManager.instance.isFreeplay)
         {
-            if (OVRInput.GetDown(OVRInput.Button.Three))
+            if (OVRInput.GetDown(OVRInput.Button.Two))
             {
                 /*
                  * Ako trenutno NE postavljamo:
@@ -34,6 +34,7 @@ public class HoopSetAndCreate : MonoBehaviour
                  */
                 if (!isPlacing)
                 {
+                    DeleteBasket();
                     StartPlacement();
                 }
                 /*

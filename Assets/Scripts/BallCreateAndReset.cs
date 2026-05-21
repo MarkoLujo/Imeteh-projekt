@@ -16,8 +16,8 @@ public class BallCreateAndReset : MonoBehaviour
 
     void Update()
     {
-        bool yPressed = OVRInput.GetDown(OVRInput.Button.Four); // Y button
-        bool gripHeld = OVRInput.Get(OVRInput.Button.PrimaryHandTrigger); // left grip
+        bool yPressed = OVRInput.GetDown(OVRInput.Button.One); // Y button
+        bool gripHeld = OVRInput.Get(OVRInput.Button.SecondaryHandTrigger); // left grip
 
         // 1. SPAWN / GRAB (Y + grip)
         if (yPressed && gripHeld)

@@ -333,8 +333,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311575147144765066}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0.5, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2}
   m_LocalScale: {x: 0.5, y: 0.53400755, z: 0.466515}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -344,7 +344,7 @@ Transform:
   - {fileID: 3419642144031579667}
   - {fileID: 3568628592665877828}
   m_Father: {fileID: 5794034834298752286}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
 --- !u!1 &1546598353563035920
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.83, y: -0.752, z: 0.467}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7245754836518949648}
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Freeplay
+  m_text: Level 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
   m_sharedMaterial: {fileID: -3096865648701443885, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
@@ -637,7 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6606726232807136218}
   - component: {fileID: 1935191687042649031}
-  - component: {fileID: 3677563265843375742}
+  - component: {fileID: 862438870174283808}
   m_Layer: 0
   m_Name: detectorBottom
   m_TagString: Untagged
@@ -681,7 +681,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4, y: 0.22, z: 0.4}
   m_Center: {x: -0.425, y: 1.05, z: 0}
---- !u!114 &3677563265843375742
+--- !u!114 &862438870174283808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -690,10 +690,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2272040358597801564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a28ac35a2c72ec49ae03e87e2b6fb8e, type: 3}
+  m_Script: {fileID: 11500000, guid: fe60140665d22554fbe805cda5bf01bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: APscenaKos
+  levelIndex: 2
+  exitApp: 0
 --- !u!1 &2668716996286108208
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929114241902769967}
   - component: {fileID: 3151427559578199614}
-  - component: {fileID: 4205084972609204587}
+  - component: {fileID: 2571530268377884353}
   m_Layer: 0
   m_Name: detectorBottom
   m_TagString: Untagged
@@ -748,7 +749,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4, y: 0.22, z: 0.4}
   m_Center: {x: -0.425, y: 1.05, z: 0}
---- !u!114 &4205084972609204587
+--- !u!114 &2571530268377884353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -757,10 +758,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2668716996286108208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a28ac35a2c72ec49ae03e87e2b6fb8e, type: 3}
+  m_Script: {fileID: 11500000, guid: fe60140665d22554fbe805cda5bf01bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: APscenaKos
+  levelIndex: 0
+  exitApp: 0
 --- !u!1 &3739952745510069296
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +828,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: Level 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
   m_sharedMaterial: {fileID: -3096865648701443885, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
@@ -1322,7 +1324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 2
+  m_text: Level 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
   m_sharedMaterial: {fileID: -3096865648701443885, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
@@ -1607,8 +1609,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8336961984367783183}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.435, y: 0.0020000339, z: 0.0119999945}
+  m_LocalRotation: {x: 0, y: -0.86602545, z: 0, w: 0.49999994}
+  m_LocalPosition: {x: -1.435, y: 0.0020000339, z: -0.2}
   m_LocalScale: {x: 0.5, y: 0.53400755, z: 0.466515}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1618,7 +1620,7 @@ Transform:
   - {fileID: 2793178373467429845}
   - {fileID: 424402797051808043}
   m_Father: {fileID: 5794034834298752286}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -120, z: 0}
 --- !u!1 &8758652777932790364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,7 +1733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2600328443387562023}
   - component: {fileID: 9182513392532283505}
-  - component: {fileID: 2225640594340235103}
+  - component: {fileID: 6442632952428500265}
   m_Layer: 0
   m_Name: detectorBottom
   m_TagString: Untagged
@@ -1775,7 +1777,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4, y: 0.22, z: 0.4}
   m_Center: {x: -0.425, y: 1.05, z: 0}
---- !u!114 &2225640594340235103
+--- !u!114 &6442632952428500265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1784,10 +1786,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9008793406663816670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a28ac35a2c72ec49ae03e87e2b6fb8e, type: 3}
+  m_Script: {fileID: 11500000, guid: fe60140665d22554fbe805cda5bf01bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: APscenaKos
+  levelIndex: 1
+  exitApp: 0
 --- !u!1 &9107813981011194451
 GameObject:
   m_ObjectHideFlags: 0

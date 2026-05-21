@@ -22,8 +22,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     private void Start(){
         instance = this;
-        CreateUI();
-        ShowUI();
+        //CreateUI();
         LoadFreeplay();
     }
 
@@ -34,15 +33,19 @@ public class LevelManager : MonoBehaviour
     public HoopSetAndCreate hoopManager;
     public SceneStats sceneStats;
 
-    public GameObject mainUIPrefab;
-    private GameObject mainUIObject;
-    MainUIControl UIcontrol;
+    //public GameObject mainUIPrefab;
+    //private GameObject mainUIObject;
+
+    public GameObject levelSelectBasketPrefabs;
+    public GameObject levelSelectBaskets;
+
+    //MainUIControl UIcontrol;
 
     public GameObject buttonTemplate;
 
     public bool isFreeplay;
     public int currentLevelIndex;
-
+    /*
     public void uiButtonClick(int index) { 
         if (UIcontrol.levelUI.activeSelf) {
 
@@ -60,13 +63,13 @@ public class LevelManager : MonoBehaviour
             hoopManager.basketPrefab = freeplayBaskets[index];
             hoopManager.UpdateBasket();
         }
-    }
+    }*/
 
     private void Update(){
         bool startPressed = OVRInput.GetDown(OVRInput.Button.Start);
 
-        if (startPressed) {
-            if (mainUIObject.activeSelf) { 
+        if (startPressed && isFreeplay) {
+            if (levelSelectBaskets != null) { 
                 HideUI();
             }
             else{
@@ -78,8 +81,6 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(int index) {
         isFreeplay = false;
         currentLevelIndex = index;
-        
-        UIcontrol.showInLeveltUI();
         HideUI();
 
 
@@ -94,23 +95,23 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void ShowUI() { 
-        mainUIObject.SetActive(true);
-        mainUIObject.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(-1,1,0);
+    public void ShowUI() {
+        levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, GameObject.FindGameObjectWithTag("Player").transform);
+        levelSelectBaskets.transform.position += new Vector3(-1,1,0);
+        levelSelectBaskets.transform.SetParent(null);
 
     }
-    public void HideUI() { 
-        mainUIObject.SetActive(false);
-
+    public void HideUI() {
+        Destroy(levelSelectBaskets);
     }
 
     public void LoadFreeplay() {
         isFreeplay = true;
-        ShowUI();
-        UIcontrol.showMainUI();
+        //UIcontrol.showMainUI();
 
     }
 
+    /*
     public void CreateUI() { 
         mainUIObject = Instantiate(mainUIPrefab);
         UIcontrol = mainUIObject.GetComponent<MainUIControl>();
@@ -140,6 +141,7 @@ public class LevelManager : MonoBehaviour
             buttonScript.manager = this;        
         }
     }
+    */
 
     public void OnScore() {
         
