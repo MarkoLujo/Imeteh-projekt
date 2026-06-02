@@ -14,16 +14,25 @@ public class BallCreateAndReset : MonoBehaviour
     private bool holdingBall = false;
     private bool gripWasHeld = false;
 
+    bool yPressed = false;
+    bool gripHeld = false;
+
     void Update()
     {
-        bool yPressed = OVRInput.GetDown(OVRInput.Button.One); // Y button
-        bool gripHeld = OVRInput.Get(OVRInput.Button.SecondaryHandTrigger); // left grip
+        yPressed = OVRInput.GetDown(OVRInput.Button.One); // Y button
+        gripHeld = OVRInput.Get(OVRInput.Button.SecondaryHandTrigger); // left grip
 
         // 1. SPAWN / GRAB (Y + grip)
+        if (yPressed)
+        { 
+            SpawnBall();
+        }
+        /*
         if (yPressed && gripHeld)
         {
             SpawnAndGrabBall();
         }
+        */
 
         // 2. RELEASE (pusti grip)
         if (holdingBall && gripWasHeld && !gripHeld)
@@ -42,6 +51,32 @@ public class BallCreateAndReset : MonoBehaviour
         }
     }
 
+    void SpawnBall() { 
+        DeleteBall();
+        // spawn nove lopte
+        currentBall = Instantiate(ballPrefab);
+        currentBallRb = currentBall.GetComponent<Rigidbody>();
+        currentBall.transform.SetParent(handTransform);
+        currentBall.transform.localPosition = new Vector3(-0.07f,0,0.03f);
+        currentBall.transform.localRotation = Quaternion.identity;
+        currentBall.transform.SetParent(null);
+        currentBall.GetComponent<Rigidbody>().linearVelocity = new Vector3(0,1.5f,0);
+
+        if (gripHeld) { 
+            GrabBall();
+        }
+
+    }
+
+    void GrabBall() { 
+        currentBall.transform.SetParent(handTransform);
+        holdingBall = true;
+        // disable physics dok je u ruci - simuliraj metin grab sustav
+        currentBallRb.isKinematic = true;
+        currentBall.GetComponent<IThrowable>().Grab();
+        holdingBall = true;
+    }
+    /*
     void SpawnAndGrabBall()
     {
         DeleteBall();
@@ -61,6 +96,7 @@ public class BallCreateAndReset : MonoBehaviour
 
         holdingBall = true;
     }
+    */
 
     void ReleaseBall()
     {
