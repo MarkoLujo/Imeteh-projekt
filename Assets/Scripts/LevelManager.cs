@@ -20,11 +20,7 @@ public struct Level {
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
-    private void Start(){
-        instance = this;
-        //CreateUI();
-        LoadFreeplay();
-    }
+
 
     public Level[] levels;
     public GameObject[] freeplayBalls;
@@ -44,6 +40,38 @@ public class LevelManager : MonoBehaviour
 
     public GameObject scoreDisplayPrefab;
     public GameObject scoreDisplay;
+
+    public GameObject popupPrefab;
+    public GameObject popupObject;
+    public float popupTime = 0;
+    Vector3 popupFinalScale;
+
+    public GameObject mainCamera;
+    public OVRCameraRig mainCamRig;
+
+    private void Start(){
+        instance = this;
+        mainCamera = GameObject.FindGameObjectWithTag("Player");
+        mainCamRig = mainCamera.GetComponent<OVRCameraRig>();
+        //CreateUI();
+        LoadFreeplay();
+
+        // Todo nakon nekog vremena pokaži popupove za postavljanje koša, lopte i izbor levela
+    }
+
+    public void ShowPopup(string text, float time) {
+        Destroy(popupObject);
+        Transform eyePos = mainCamRig.centerEyeAnchor;
+        popupObject = Instantiate(popupPrefab, eyePos.position, eyePos.rotation);
+        popupObject.transform.eulerAngles = new Vector3(0, popupObject.transform.eulerAngles.y, 0);
+
+        popupObject.transform.position += eyePos.forward * 0.6f + eyePos.up * -0.2f;
+
+        popupObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+        popupTime = time;
+        popupFinalScale = popupObject.transform.localScale;
+        popupObject.transform.localScale *= 0.0f;
+    }
 
     //MainUIControl UIcontrol;
 
@@ -77,32 +105,61 @@ public class LevelManager : MonoBehaviour
 
         if (startPressed) {
             if (uiActive) { 
+                //ShowPopup("Test popup", 5);
                 HideUI();
             }
             else{
                 ShowUI();
             }
         }
+
+        if (popupObject != null)
+        {
+            if (popupTime <= 0){
+                Destroy(popupObject);
+            }
+            else {
+                // Todo možda neka više fancy animacija
+                if (popupTime <= 1) {
+                    popupObject.transform.localScale *= 0.95f;
+                }
+                else {
+                    popupObject.transform.localScale = popupObject.transform.localScale * 0.95f + popupFinalScale * 0.05f;
+                }
+                popupTime -= Time.deltaTime;
+                /*
+                Transform centerEyePos = mainCamera.GetComponent<OVRCameraRig>().centerEyeAnchor;
+                popupObject.transform.position = popupObject.transform.position * 0.75f + centerEyePos.position * 0.25f;
+                popupObject.transform.rotation = Quaternion.Slerp(popupObject.transform.rotation, centerEyePos.rotation, 0.25f);
+                */
+            }
+        }
+
     }
 
+
+
     public void LoadLevel(int index) {
-        isFreeplay = false;
-        currentLevelIndex = index;
-        HideUI();
+
+        if (hoopManager.spawnedBasket != null && !hoopManager.isPlacing) { 
+            isFreeplay = false;
+            currentLevelIndex = index;
+            HideUI();
 
 
-        Level newLevel = levels[index];
-        ballManager.ballPrefab = newLevel.ballPrefab;
-        ballManager.DeleteBall();
+            Level newLevel = levels[index];
+            ballManager.ballPrefab = newLevel.ballPrefab;
+            ballManager.DeleteBall();
 
-        hoopManager.basketPrefab = newLevel.basketPrefab;
-        hoopManager.UpdateBasket();
+            hoopManager.basketPrefab = newLevel.basketPrefab;
+            hoopManager.UpdateBasket();
 
-        scoreDisplay = Instantiate(scoreDisplayPrefab, hoopManager.spawnedBasket.transform);
-        sceneStats.scoreDisplay = scoreDisplay.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        sceneStats.timerDisplay = scoreDisplay.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
-        sceneStats.ResetTimer();
-        sceneStats.ResetScore();
+            scoreDisplay = Instantiate(scoreDisplayPrefab, hoopManager.spawnedBasket.transform);
+            sceneStats.scoreDisplay = scoreDisplay.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+            sceneStats.timerDisplay = scoreDisplay.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+            sceneStats.ResetTimer();
+            sceneStats.ResetScore();
+        }
 
 
     }
@@ -112,23 +169,36 @@ public class LevelManager : MonoBehaviour
 
         if (isFreeplay)
         {
-            levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, GameObject.FindGameObjectWithTag("Player").transform);
-            //levelSelectBaskets.transform.position += new Vector3(-1,1,0);
-            levelSelectBaskets.transform.SetParent(null);
-            levelSelectBaskets.transform.position = new Vector3(levelSelectBaskets.transform.position.x, 0, levelSelectBaskets.transform.position.z);
+            if (hoopManager.spawnedBasket != null && !hoopManager.isPlacing)
+            {
+                levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, mainCamRig.centerEyeAnchor);
+                //levelSelectBaskets.transform.position += new Vector3(-1,1,0);
+                levelSelectBaskets.transform.SetParent(null);
+                levelSelectBaskets.transform.position = new Vector3(levelSelectBaskets.transform.position.x, 0, levelSelectBaskets.transform.position.z);
+                levelSelectBaskets.transform.eulerAngles = new Vector3(0, levelSelectBaskets.transform.eulerAngles.y, 0);
+            }
+            else {
+                ShowPopup("Prvo postavi koš za pristup levelima!", 5);
+            }
 
-            trash = Instantiate(trashPrefab, GameObject.FindGameObjectWithTag("Player").transform);
+
+            trash = Instantiate(trashPrefab, mainCamRig.centerEyeAnchor);
             trash.transform.SetParent(null);
             trash.transform.position = new Vector3(trash.transform.position.x, 0, trash.transform.position.z);
+            trash.transform.eulerAngles = new Vector3(0, trash.transform.eulerAngles.y, 0);
 
 
             trash.transform.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().exitApp = true;
             trash.transform.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().freeplay = false;
         }
         else {
-            trash = Instantiate(trashPrefab, GameObject.FindGameObjectWithTag("Player").transform);
+            trash = Instantiate(trashPrefab, mainCamRig.centerEyeAnchor);
+            trash.transform.localPosition = new Vector3(0,0,0.5f);
+            trash.transform.Rotate(Vector3.up, -30f);
             trash.transform.SetParent(null);
             trash.transform.position = new Vector3(trash.transform.position.x, 0, trash.transform.position.z);
+            trash.transform.eulerAngles = new Vector3(0, trash.transform.eulerAngles.y, 0);
+
 
         }
 

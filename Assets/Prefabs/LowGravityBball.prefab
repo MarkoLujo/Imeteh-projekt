@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 4143153098935810833}
   - component: {fileID: 661256734265193738}
   - component: {fileID: 3282658938381979496}
+  - component: {fileID: 2203519467172082092}
   m_Layer: 0
   m_Name: LowGravityBball
   m_TagString: Lopta
@@ -183,6 +184,19 @@ MonoBehaviour:
       m_Calls: []
   maxStoredPositions: 4
   predictAhead: 2
+--- !u!114 &2203519467172082092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408173820112942473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93cc4f7a301d7b4c841babaa6dfac87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityScale: 0.5
 --- !u!1 &5617407212717660293
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,8 +571,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9811321, g: 0.84299463, b: 0.23602703, a: 1}
-      key1: {r: 0.8490566, g: 0.18823424, b: 0.18823424, a: 1}
+      key0: {r: 0, g: 0.73543906, b: 1, a: 1}
+      key1: {r: 0.64463615, g: 0, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -581,7 +595,7 @@ TrailRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 2
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2

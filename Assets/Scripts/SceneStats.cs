@@ -38,12 +38,14 @@ public class SceneStats : MonoBehaviour
         points++;
         
         int displayPoints = Mathf.Min(points, 99);
-        if (displayPoints < 10){
-            scoreDisplay.text = " " + displayPoints.ToString();
-        } else {
-            scoreDisplay.text = points.ToString();
-        }
 
+        if (scoreDisplay != null) { 
+            if (displayPoints < 10){
+                scoreDisplay.text = " " + displayPoints.ToString();
+            } else {
+                scoreDisplay.text = points.ToString();
+            }
+        }
         LevelManager.instance.OnScore();
     }
 }

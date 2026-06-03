@@ -14,8 +14,7 @@ public class BasketMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 v = startPos;
-        v.x += delta * Mathf.Sin (Time.time * speed);
-        transform.position = v;
+        float v = delta * Mathf.Sin (Time.time * speed);
+        transform.position = startPos + transform.forward * v;
     }
 }

@@ -425,8 +425,8 @@ MonoBehaviour:
       timeLimit: -1
     title: 
   freeplayBalls:
-  - {fileID: 4408173820112942473, guid: 1454e64e015b24649b49cc0cb44c665d, type: 3}
   - {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
+  - {fileID: 4408173820112942473, guid: 1454e64e015b24649b49cc0cb44c665d, type: 3}
   - {fileID: 4408173820112942473, guid: 70b29d9dd3d04df418e9789f014dcfcd, type: 3}
   freeplayBaskets:
   - {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
@@ -440,6 +440,11 @@ MonoBehaviour:
   trash: {fileID: 0}
   scoreDisplayPrefab: {fileID: 5365541371525751770, guid: 4f10929a2f83bfa4b9f18e77bdc3c392, type: 3}
   scoreDisplay: {fileID: 0}
+  popupPrefab: {fileID: 3693192114082676249, guid: e36feb909069d02468fcd7cdf82b7cef, type: 3}
+  popupObject: {fileID: 0}
+  popupTime: 0
+  mainCamera: {fileID: 0}
+  mainCamRig: {fileID: 0}
   isFreeplay: 1
   currentLevelIndex: 0
   uiActive: 0
@@ -857,6 +862,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2251008056992973883, guid: 7f59a3af412b1b545a270da9346e2566, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478560515340819170, guid: 7f59a3af412b1b545a270da9346e2566, type: 3}
+      propertyPath: usePerEyeCameras
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478560515340819170, guid: 7f59a3af412b1b545a270da9346e2566, type: 3}
+      propertyPath: useFixedUpdateForTracking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2784696657024130647, guid: 7f59a3af412b1b545a270da9346e2566, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718065851749924349, guid: 7f59a3af412b1b545a270da9346e2566, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3978659874805858751, guid: 7f59a3af412b1b545a270da9346e2566, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
