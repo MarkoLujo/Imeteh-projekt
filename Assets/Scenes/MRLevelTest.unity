@@ -418,8 +418,8 @@ MonoBehaviour:
       score: 3
       timeLimit: -1
     title: 
-  - basketPrefab: {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
-    ballPrefab: {fileID: 4408173820112942473, guid: 1454e64e015b24649b49cc0cb44c665d, type: 3}
+  - basketPrefab: {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
+    ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
     goal:
       score: 3
       timeLimit: -1
