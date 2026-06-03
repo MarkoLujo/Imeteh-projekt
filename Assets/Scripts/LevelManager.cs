@@ -51,6 +51,7 @@ public class LevelManager : MonoBehaviour
 
     public bool isFreeplay;
     public int currentLevelIndex;
+    public bool uiActive = false;
     /*
     public void uiButtonClick(int index) { 
         if (UIcontrol.levelUI.activeSelf) {
@@ -75,7 +76,7 @@ public class LevelManager : MonoBehaviour
         bool startPressed = OVRInput.GetDown(OVRInput.Button.Start);
 
         if (startPressed) {
-            if (levelSelectBaskets != null) { 
+            if (uiActive) { 
                 HideUI();
             }
             else{
@@ -114,9 +115,12 @@ public class LevelManager : MonoBehaviour
             levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, GameObject.FindGameObjectWithTag("Player").transform);
             //levelSelectBaskets.transform.position += new Vector3(-1,1,0);
             levelSelectBaskets.transform.SetParent(null);
+            levelSelectBaskets.transform.position = new Vector3(levelSelectBaskets.transform.position.x, 0, levelSelectBaskets.transform.position.z);
 
             trash = Instantiate(trashPrefab, GameObject.FindGameObjectWithTag("Player").transform);
             trash.transform.SetParent(null);
+            trash.transform.position = new Vector3(trash.transform.position.x, 0, trash.transform.position.z);
+
 
             trash.transform.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().exitApp = true;
             trash.transform.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().freeplay = false;
@@ -124,12 +128,16 @@ public class LevelManager : MonoBehaviour
         else {
             trash = Instantiate(trashPrefab, GameObject.FindGameObjectWithTag("Player").transform);
             trash.transform.SetParent(null);
+            trash.transform.position = new Vector3(trash.transform.position.x, 0, trash.transform.position.z);
+
         }
 
+        uiActive = true;
     }
     public void HideUI() {
         Destroy(levelSelectBaskets);
         Destroy(trash);
+        uiActive = false;
     }
 
     public void LoadFreeplay() {
