@@ -3869,26 +3869,28 @@ MonoBehaviour:
   - basketPrefab: {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
     goal:
-      score: 1
+      score: 3
       timeLimit: -1
     title: 
   - basketPrefab: {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: 70b29d9dd3d04df418e9789f014dcfcd, type: 3}
     goal:
-      score: 1
+      score: 3
       timeLimit: -1
     title: 
   - basketPrefab: {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: 1454e64e015b24649b49cc0cb44c665d, type: 3}
     goal:
-      score: 1
+      score: 3
       timeLimit: -1
     title: 
   freeplayBalls:
-  - {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
   - {fileID: 4408173820112942473, guid: 1454e64e015b24649b49cc0cb44c665d, type: 3}
+  - {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
+  - {fileID: 4408173820112942473, guid: 70b29d9dd3d04df418e9789f014dcfcd, type: 3}
   freeplayBaskets:
-  - {fileID: 2813193231336707511, guid: 8376da90f06b64c41a108c2bf3b92ff1, type: 3}
+  - {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
+  - {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
   ballManager: {fileID: 1538719304}
   hoopManager: {fileID: 861201953}
   sceneStats: {fileID: 794583062}
@@ -3896,7 +3898,8 @@ MonoBehaviour:
   levelSelectBaskets: {fileID: 0}
   trashPrefab: {fileID: 9033313144048774369, guid: 9267d65fd420d6445a65acb963e2fe8a, type: 3}
   trash: {fileID: 0}
-  buttonTemplate: {fileID: 6962244841375797390, guid: ab28f66dff923ea43b76e2a8acd4ed0b, type: 3}
+  scoreDisplayPrefab: {fileID: 5365541371525751770, guid: 4f10929a2f83bfa4b9f18e77bdc3c392, type: 3}
+  scoreDisplay: {fileID: 0}
   isFreeplay: 1
   currentLevelIndex: 0
 --- !u!4 &615186863

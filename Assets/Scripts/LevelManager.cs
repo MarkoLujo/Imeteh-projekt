@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -41,11 +42,12 @@ public class LevelManager : MonoBehaviour
     public GameObject trashPrefab;
     public GameObject trash;
 
-    //public GameObject scoreDisplay;
+    public GameObject scoreDisplayPrefab;
+    public GameObject scoreDisplay;
 
     //MainUIControl UIcontrol;
 
-    public GameObject buttonTemplate;
+    //public GameObject buttonTemplate;
 
     public bool isFreeplay;
     public int currentLevelIndex;
@@ -86,7 +88,6 @@ public class LevelManager : MonoBehaviour
         isFreeplay = false;
         currentLevelIndex = index;
         HideUI();
-        //scoreDisplay.SetActive(true);
 
 
         Level newLevel = levels[index];
@@ -96,12 +97,12 @@ public class LevelManager : MonoBehaviour
         hoopManager.basketPrefab = newLevel.basketPrefab;
         hoopManager.UpdateBasket();
 
-        //scoreDisplay.transform.SetParent(hoopManager.spawnedBasket.transform);
-        //scoreDisplay.transform.position = hoopManager.spawnedBasket.transform.position + new Vector3(0,2,0);
-        //scoreDisplay.transform.rotation = hoopManager.spawnedBasket.transform.rotation;
-        //scoreDisplay.transform.Rotate(new Vector3(0,90,0));
-
+        scoreDisplay = Instantiate(scoreDisplayPrefab, hoopManager.spawnedBasket.transform);
+        sceneStats.scoreDisplay = scoreDisplay.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        sceneStats.timerDisplay = scoreDisplay.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
         sceneStats.ResetTimer();
+        sceneStats.ResetScore();
+
 
     }
 
@@ -134,9 +135,14 @@ public class LevelManager : MonoBehaviour
     public void LoadFreeplay() {
         isFreeplay = true;
         HideUI();
-        //scoreDisplay.SetActive(false);
+        Destroy(scoreDisplay);
         //UIcontrol.showMainUI();
 
+        ballManager.ballPrefab = freeplayBalls[0];
+        ballManager.DeleteBall();
+
+        hoopManager.basketPrefab = freeplayBaskets[0];
+        hoopManager.UpdateBasket();
     }
 
     /*

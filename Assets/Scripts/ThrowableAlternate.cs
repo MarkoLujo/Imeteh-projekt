@@ -58,4 +58,9 @@ public class ThrowableAlternate : IThrowable
         Debug.Log("Vel:" + GetComponent<Rigidbody>().linearVelocity);
         isGrabbed = false;
     }
+
+
+    void OnDestroy() {
+        Destroy(simulatedBall);
+    }
 }
