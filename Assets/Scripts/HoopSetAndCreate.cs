@@ -23,39 +23,38 @@ public class HoopSetAndCreate : MonoBehaviour
          * drugi klik -> place basket
          */
 
-        // Pozicija koša se može promijenit samo van levela
-        if (LevelManager.instance.isFreeplay)
+
+        // TODO Fixat za ne freeplay score se ne postavi dobro
+        if (OVRInput.GetDown(OVRInput.Button.Two))
         {
-            if (OVRInput.GetDown(OVRInput.Button.Two))
-            {
-                /*
-                 * Ako trenutno NE postavljamo:
-                 * napravi preview
-                 */
-                if (!isPlacing)
-                {
-                    DeleteBasket();
-                    StartPlacement();
-                }
-                /*
-                 * Ako VEĆ postavljamo:
-                 * potvrdi placement
-                 */
-                else
-                {
-                    PlaceBasket();
-                }
-            }
-
             /*
-             * Ako nema placement moda,
-             * ne radi raycast
-             */
+                * Ako trenutno NE postavljamo:
+                * napravi preview
+                */
             if (!isPlacing)
-                return;
-
-            UpdatePreview();
+            {
+                DeleteBasket();
+                StartPlacement();
+            }
+            /*
+                * Ako VEĆ postavljamo:
+                * potvrdi placement
+                */
+            else
+            {
+                PlaceBasket();
+            }
         }
+
+        /*
+            * Ako nema placement moda,
+            * ne radi raycast
+            */
+        if (!isPlacing)
+            return;
+
+        UpdatePreview();
+        
     }
 
     void StartPlacement()

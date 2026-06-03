@@ -431,6 +431,7 @@ MonoBehaviour:
   freeplayBaskets:
   - {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
   - {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
+  - {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
   ballManager: {fileID: 1538719304}
   hoopManager: {fileID: 861201953}
   sceneStats: {fileID: 794583062}
@@ -445,6 +446,8 @@ MonoBehaviour:
   popupTime: 0
   mainCamera: {fileID: 0}
   mainCamRig: {fileID: 0}
+  mainUIPrefab: {fileID: 3896340198349204923, guid: a7f7936d49ad7e147bf8a726baf035fc, type: 3}
+  buttonTemplate: {fileID: 6962244841375797390, guid: ab28f66dff923ea43b76e2a8acd4ed0b, type: 3}
   isFreeplay: 1
   currentLevelIndex: 0
   uiActive: 0

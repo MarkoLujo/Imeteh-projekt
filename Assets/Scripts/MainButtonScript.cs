@@ -6,6 +6,6 @@ public class MainButtonScript : MonoBehaviour
     public LevelManager manager;
 
     public void Click() { 
-        //manager.uiButtonClick(index);
+        manager.uiButtonClick(index);
     }
 }

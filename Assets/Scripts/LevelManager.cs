@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ using UnityEngine;
 public struct Requirements { 
     public int score;
     public int timeLimit;
-    // TODO moûda joö stvari
+    // TODO mo≈æda jo≈° stvari
 };
 
 [System.Serializable]
@@ -29,8 +29,7 @@ public class LevelManager : MonoBehaviour
     public HoopSetAndCreate hoopManager;
     public SceneStats sceneStats;
 
-    //public GameObject mainUIPrefab;
-    //private GameObject mainUIObject;
+
 
     public GameObject levelSelectBasketPrefabs;
     public GameObject levelSelectBaskets;
@@ -49,14 +48,25 @@ public class LevelManager : MonoBehaviour
     public GameObject mainCamera;
     public OVRCameraRig mainCamRig;
 
+
+    public GameObject mainUIPrefab;
+    private GameObject mainUIObject;
+    MainUIControl UIcontrol;
+    public GameObject buttonTemplate;
+
+
+    public bool isFreeplay;
+    public int currentLevelIndex;
+    public bool uiActive = false;
+
+
     private void Start(){
         instance = this;
         mainCamera = GameObject.FindGameObjectWithTag("Player");
         mainCamRig = mainCamera.GetComponent<OVRCameraRig>();
-        //CreateUI();
         LoadFreeplay();
 
-        // Todo nakon nekog vremena pokaûi popupove za postavljanje koöa, lopte i izbor levela
+        // Todo nakon nekog vremena poka≈æi popupove za postavljanje ko≈°a, lopte i izbor levela
     }
 
     public void ShowPopup(string text, float time) {
@@ -73,24 +83,11 @@ public class LevelManager : MonoBehaviour
         popupObject.transform.localScale *= 0.0f;
     }
 
-    //MainUIControl UIcontrol;
 
-    //public GameObject buttonTemplate;
 
-    public bool isFreeplay;
-    public int currentLevelIndex;
-    public bool uiActive = false;
-    /*
-    public void uiButtonClick(int index) { 
-        if (UIcontrol.levelUI.activeSelf) {
+    public void uiButtonClick(int index) {
 
-            // Level se moûe zapoËeti samo ako koö postoji i ako se trenutno ne mijenja
-            if (hoopManager.spawnedBasket != null && !hoopManager.isPlacing) { 
-                LoadLevel(index);
-            }
-
-        }
-        else if (UIcontrol.ballUI.activeSelf) { 
+        if (UIcontrol.ballUI.activeSelf) { 
             ballManager.ballPrefab = freeplayBalls[index];
             ballManager.DeleteBall();
         }
@@ -98,7 +95,7 @@ public class LevelManager : MonoBehaviour
             hoopManager.basketPrefab = freeplayBaskets[index];
             hoopManager.UpdateBasket();
         }
-    }*/
+    }
 
     private void Update(){
         bool startPressed = OVRInput.GetDown(OVRInput.Button.Start);
@@ -119,7 +116,7 @@ public class LevelManager : MonoBehaviour
                 Destroy(popupObject);
             }
             else {
-                // Todo moûda neka viöe fancy animacija
+                // Todo mo≈æda neka vi≈°e fancy animacija
                 if (popupTime <= 1) {
                     popupObject.transform.localScale *= 0.95f;
                 }
@@ -127,6 +124,8 @@ public class LevelManager : MonoBehaviour
                     popupObject.transform.localScale = popupObject.transform.localScale * 0.95f + popupFinalScale * 0.05f;
                 }
                 popupTime -= Time.deltaTime;
+
+                // Da se pomiƒçe zajedno s kamerom
                 /*
                 Transform centerEyePos = mainCamera.GetComponent<OVRCameraRig>().centerEyeAnchor;
                 popupObject.transform.position = popupObject.transform.position * 0.75f + centerEyePos.position * 0.25f;
@@ -167,32 +166,59 @@ public class LevelManager : MonoBehaviour
     public void ShowUI() {
         HideUI();
 
+        Transform eyePos = mainCamRig.centerEyeAnchor;
+
         if (isFreeplay)
         {
             if (hoopManager.spawnedBasket != null && !hoopManager.isPlacing)
             {
-                levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, mainCamRig.centerEyeAnchor);
+                levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, eyePos);
                 //levelSelectBaskets.transform.position += new Vector3(-1,1,0);
                 levelSelectBaskets.transform.SetParent(null);
                 levelSelectBaskets.transform.position = new Vector3(levelSelectBaskets.transform.position.x, 0, levelSelectBaskets.transform.position.z);
                 levelSelectBaskets.transform.eulerAngles = new Vector3(0, levelSelectBaskets.transform.eulerAngles.y, 0);
             }
             else {
-                ShowPopup("Prvo postavi koö za pristup levelima!", 5);
+                ShowPopup("Prvo postavi ko≈° za pristup levelima!", 5);
             }
 
 
-            trash = Instantiate(trashPrefab, mainCamRig.centerEyeAnchor);
+            trash = Instantiate(trashPrefab, eyePos);
             trash.transform.SetParent(null);
             trash.transform.position = new Vector3(trash.transform.position.x, 0, trash.transform.position.z);
             trash.transform.eulerAngles = new Vector3(0, trash.transform.eulerAngles.y, 0);
 
-
             trash.transform.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().exitApp = true;
             trash.transform.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().freeplay = false;
+
+            // Todo nekako napravit da se one zrake iz kontrolera pojavljuju samo kad je ui aktivan
+            mainUIObject = Instantiate(mainUIPrefab, eyePos.position, eyePos.rotation);
+            mainUIObject.transform.SetParent(null);
+            mainUIObject.transform.position = new Vector3(mainUIObject.transform.position.x, 0, mainUIObject.transform.position.z) + eyePos.forward * 0.6f + eyePos.up * 0.8f; ;
+            mainUIObject.transform.eulerAngles = new Vector3(0, mainUIObject.transform.eulerAngles.y, 0);
+
+            UIcontrol = mainUIObject.GetComponent<MainUIControl>();
+            UIcontrol.showMainUI();
+
+            // TODO dodat neke UI slike i/ili opis lopta, levela i ko≈°eva na gumbima
+            for (int i = 0; i < freeplayBalls.Length; i++)
+            {
+                GameObject newButton = Instantiate(buttonTemplate, UIcontrol.ballUI.transform);
+                MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
+                buttonScript.index = i;
+                buttonScript.manager = this;
+            }
+
+            for (int i = 0; i < freeplayBaskets.Length; i++)
+            {
+                GameObject newButton = Instantiate(buttonTemplate, UIcontrol.basketUI.transform);
+                MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
+                buttonScript.index = i;
+                buttonScript.manager = this;
+            }
         }
         else {
-            trash = Instantiate(trashPrefab, mainCamRig.centerEyeAnchor);
+            trash = Instantiate(trashPrefab, eyePos);
             trash.transform.localPosition = new Vector3(0,0,0.5f);
             trash.transform.Rotate(Vector3.up, -30f);
             trash.transform.SetParent(null);
@@ -207,6 +233,7 @@ public class LevelManager : MonoBehaviour
     public void HideUI() {
         Destroy(levelSelectBaskets);
         Destroy(trash);
+        Destroy(mainUIObject);
         uiActive = false;
     }
 
@@ -214,7 +241,6 @@ public class LevelManager : MonoBehaviour
         isFreeplay = true;
         HideUI();
         Destroy(scoreDisplay);
-        //UIcontrol.showMainUI();
 
         ballManager.ballPrefab = freeplayBalls[0];
         ballManager.DeleteBall();
@@ -223,37 +249,6 @@ public class LevelManager : MonoBehaviour
         hoopManager.UpdateBasket();
     }
 
-    /*
-    public void CreateUI() { 
-        mainUIObject = Instantiate(mainUIPrefab);
-        UIcontrol = mainUIObject.GetComponent<MainUIControl>();
-        UIcontrol.showMainUI();
-
-        // TODO dodat neke UI slike i/ili opis lopta, levela i koöeva na gumbima
-
-        for(int i=0; i<levels.Length; i++){
-            GameObject newButton = Instantiate(buttonTemplate, UIcontrol.levelUI.transform);
-            MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
-            buttonScript.index = i;
-            buttonScript.manager = this; 
-        }
-
-        for(int i=0; i<freeplayBalls.Length; i++){
-            GameObject newButton = Instantiate(buttonTemplate, UIcontrol.ballUI.transform);
-            MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
-            buttonScript.index = i;
-            buttonScript.manager = this;        
-        }
-
-
-        for(int i=0; i<freeplayBaskets.Length; i++){
-            GameObject newButton = Instantiate(buttonTemplate, UIcontrol.basketUI.transform);
-            MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
-            buttonScript.index = i;
-            buttonScript.manager = this;        
-        }
-    }
-    */
 
     public void OnScore() {
         
