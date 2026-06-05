@@ -26,9 +26,9 @@ public class BasketLowerDetectorLoadLevel : MonoBehaviour
     }
 
     IEnumerator ScoreSequence() {
-        Time.timeScale = 0.3f;
+        yield return StartCoroutine(SmoothSlowmo(0.3f, 0.2f));
         yield return new WaitForSecondsRealtime(1f);
-        Time.timeScale = 1f;
+        yield return StartCoroutine(SmoothSlowmo(1f, 0.2f));
         if (exitApp) {
             QuitGame();
         } else if (freeplay) {
@@ -43,6 +43,15 @@ public class BasketLowerDetectorLoadLevel : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
-
-}
+    }
+    IEnumerator SmoothSlowmo(float target, float duration){
+        float start = Time.timeScale;
+        float t = 0;
+        while (t < duration){
+            t += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(start, target, t / duration);
+            yield return null;
+        }
+        Time.timeScale = target;
+    }
 }

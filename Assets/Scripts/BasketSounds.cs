@@ -15,13 +15,16 @@ public class BasketSounds : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
+        if(col.gameObject.tag == "Lopta"){
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(swishSound);
-        StartCoroutine(PlayScore());
-
+        if(transform.parent.GetChild(0).GetComponent<BasketDetectorTop>().isActive){
+            StartCoroutine(PlayScore());
+        }
+        }
     }
     IEnumerator PlayScore(){
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.10f);
         audioSource.PlayOneShot(scoreSound);   
     }
 

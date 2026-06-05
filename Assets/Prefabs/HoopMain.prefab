@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71f8e11fcc7d3d48b07d5a6a2d212c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreSound: {fileID: 0}
+  scoreSound: {fileID: 8300000, guid: a57f0b76154f86645bb8161e4ff92333, type: 3}
   swishSound: {fileID: 8300000, guid: 588a801f19d37bc40b30971d84d1ec15, type: 3}
 --- !u!1 &9126489612395158851
 GameObject:
