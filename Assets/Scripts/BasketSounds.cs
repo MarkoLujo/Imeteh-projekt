@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Collections;
 using UnityEngine;
 
 public class BasketSounds : MonoBehaviour
@@ -12,11 +13,16 @@ public class BasketSounds : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(swishSound);
+        StartCoroutine(PlayScore());
 
+    }
+    IEnumerator PlayScore(){
+        yield return new WaitForSeconds(0.5f);
+        audioSource.PlayOneShot(scoreSound);   
     }
 
     // Update is called once per frame
