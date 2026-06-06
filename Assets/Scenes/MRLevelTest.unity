@@ -439,8 +439,6 @@ MonoBehaviour:
   levelSelectBaskets: {fileID: 0}
   trashPrefab: {fileID: 9033313144048774369, guid: 9267d65fd420d6445a65acb963e2fe8a, type: 3}
   trash: {fileID: 0}
-  scoreDisplayPrefab: {fileID: 5365541371525751770, guid: 4f10929a2f83bfa4b9f18e77bdc3c392, type: 3}
-  scoreDisplay: {fileID: 0}
   popupPrefab: {fileID: 3693192114082676249, guid: e36feb909069d02468fcd7cdf82b7cef, type: 3}
   popupObject: {fileID: 0}
   popupTime: 0
@@ -958,6 +956,10 @@ PrefabInstance:
       propertyPath: previewPrefab
       value: 
       objectReference: {fileID: 2813193231336707511, guid: 8376da90f06b64c41a108c2bf3b92ff1, type: 3}
+    - target: {fileID: 2393754622338950748, guid: acca2bbe5d60ad54894468e0bd009147, type: 3}
+      propertyPath: scoreDisplayPrefab
+      value: 
+      objectReference: {fileID: 5365541371525751770, guid: 4f10929a2f83bfa4b9f18e77bdc3c392, type: 3}
     - target: {fileID: 2393754622338950748, guid: acca2bbe5d60ad54894468e0bd009147, type: 3}
       propertyPath: rightControllerTransform
       value: 

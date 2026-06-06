@@ -12,7 +12,7 @@ public class BasketDetector : MonoBehaviour
     private void OnTriggerEnter(Collider collider) {
 
         if (transform.parent.GetChild(0).GetComponent<BasketDetectorTop>().isActive && collider.CompareTag("Lopta")){
-            //SceneStats.instance.Score();
+            SceneStats.instance.Score();
             Debug.Log("Score");
         }
     }

@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class HoopSetAndCreate : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class HoopSetAndCreate : MonoBehaviour
 
     private GameObject currentPreview;
     public GameObject spawnedBasket;
+
+    public GameObject scoreDisplayPrefab;
+    public GameObject scoreDisplay;
 
     public bool isPlacing = false;
 
@@ -161,6 +165,14 @@ currentPreview.transform.position = targetPos;
                 oldTransform.position,
                 oldTransform.rotation
             );
+
+            
+            if (!LevelManager.instance.isFreeplay) { 
+                scoreDisplay = Instantiate(scoreDisplayPrefab, spawnedBasket.transform);
+                LevelManager.instance.sceneStats.scoreDisplay = scoreDisplay.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+                LevelManager.instance.sceneStats.timerDisplay = scoreDisplay.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+            }
+
         }
 
     }
@@ -184,6 +196,10 @@ currentPreview.transform.position = targetPos;
         Destroy(currentPreview);
 
         currentPreview = null;
+
+        UpdateBasket();
+
+
 
         isPlacing = false;
     }

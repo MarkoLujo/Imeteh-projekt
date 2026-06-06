@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -37,12 +38,11 @@ public class LevelManager : MonoBehaviour
     public GameObject trashPrefab;
     public GameObject trash;
 
-    public GameObject scoreDisplayPrefab;
-    public GameObject scoreDisplay;
 
     public GameObject popupPrefab;
     public GameObject popupObject;
     public float popupTime = 0;
+    public bool permanentPopup = false;
     Vector3 popupFinalScale;
 
     public GameObject mainCamera;
@@ -66,10 +66,42 @@ public class LevelManager : MonoBehaviour
         mainCamRig = mainCamera.GetComponent<OVRCameraRig>();
         LoadFreeplay();
 
+        StartCoroutine(ShowStartPopups());
+
         // Todo nakon nekog vremena pokaži popupove za postavljanje koša, lopte i izbor levela
     }
 
-    public void ShowPopup(string text, float time) {
+    private IEnumerator ShowStartPopups() { 
+
+        yield return new WaitForSeconds(6);
+        if (hoopManager.spawnedBasket == null) {
+            ShowPopup("Pritisni [B] za postavljanje koša!", 1, true);
+        }
+        while (hoopManager.spawnedBasket == null) { 
+            yield return new WaitForSeconds(0.5f);
+        }
+        permanentPopup = false;
+
+        yield return new WaitForSeconds(4);
+        if (ballManager.currentBall == null) {
+            ShowPopup("Pritisni [A] za dobivanje lopte", 1, true);
+        }
+        while (ballManager.currentBall == null) { 
+            yield return new WaitForSeconds(0.5f);
+        }
+        permanentPopup = false;
+
+        yield return new WaitForSeconds(4);
+        if (mainUIObject != null){
+            ShowPopup("Za prikaz menija i levela pritisni postavke na lijevom kontroleru", 1, true);
+        }
+        while (mainUIObject == null) { 
+            yield return new WaitForSeconds(0.5f);
+        }
+        permanentPopup = false;
+    }
+
+    public void ShowPopup(string text, float time, bool permanent) {
         Destroy(popupObject);
         Transform eyePos = mainCamRig.centerEyeAnchor;
         popupObject = Instantiate(popupPrefab, eyePos.position, eyePos.rotation);
@@ -77,10 +109,12 @@ public class LevelManager : MonoBehaviour
 
         popupObject.transform.position += eyePos.forward * 0.6f + eyePos.up * -0.2f;
 
-        popupObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+        popupObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
         popupTime = time;
         popupFinalScale = popupObject.transform.localScale;
         popupObject.transform.localScale *= 0.0f;
+
+        permanentPopup = permanent;
     }
 
 
@@ -117,20 +151,21 @@ public class LevelManager : MonoBehaviour
             }
             else {
                 // Todo možda neka više fancy animacija
-                if (popupTime <= 1) {
-                    popupObject.transform.localScale *= 0.95f;
+                if (popupTime <= 1 && !permanentPopup) {
+                    popupObject.transform.localScale *= 0.91f;
                 }
                 else {
-                    popupObject.transform.localScale = popupObject.transform.localScale * 0.95f + popupFinalScale * 0.05f;
+                    popupObject.transform.localScale = popupObject.transform.localScale * 0.91f + popupFinalScale * 0.09f;
                 }
-                popupTime -= Time.deltaTime;
+                if(!permanentPopup) popupTime -= Time.deltaTime;
 
                 // Da se pomiče zajedno s kamerom
-                /*
                 Transform centerEyePos = mainCamera.GetComponent<OVRCameraRig>().centerEyeAnchor;
                 popupObject.transform.position = popupObject.transform.position * 0.75f + centerEyePos.position * 0.25f;
-                popupObject.transform.rotation = Quaternion.Slerp(popupObject.transform.rotation, centerEyePos.rotation, 0.25f);
-                */
+                
+                //popupObject.transform.rotation = Quaternion.Slerp(popupObject.transform.rotation, centerEyePos.rotation, 0.25f);
+                
+                
             }
         }
 
@@ -153,9 +188,6 @@ public class LevelManager : MonoBehaviour
             hoopManager.basketPrefab = newLevel.basketPrefab;
             hoopManager.UpdateBasket();
 
-            scoreDisplay = Instantiate(scoreDisplayPrefab, hoopManager.spawnedBasket.transform);
-            sceneStats.scoreDisplay = scoreDisplay.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-            sceneStats.timerDisplay = scoreDisplay.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
             sceneStats.ResetTimer();
             sceneStats.ResetScore();
         }
@@ -179,7 +211,7 @@ public class LevelManager : MonoBehaviour
                 levelSelectBaskets.transform.eulerAngles = new Vector3(0, levelSelectBaskets.transform.eulerAngles.y, 0);
             }
             else {
-                ShowPopup("Prvo postavi koš za pristup levelima!", 5);
+                ShowPopup("Prvo postavi koš za pristup levelima!", 5, false);
             }
 
 
@@ -240,7 +272,6 @@ public class LevelManager : MonoBehaviour
     public void LoadFreeplay() {
         isFreeplay = true;
         HideUI();
-        Destroy(scoreDisplay);
 
         ballManager.ballPrefab = freeplayBalls[0];
         ballManager.DeleteBall();

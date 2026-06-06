@@ -8,7 +8,7 @@ public class BallCreateAndReset : MonoBehaviour
 
 
 
-    private GameObject currentBall;
+    public GameObject currentBall;
     private Rigidbody currentBallRb;
 
     private bool holdingBall = false;
