@@ -1,17 +1,27 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
+
 
 public class BasketLowerDetectorLoadLevel : MonoBehaviour
 {
     public int levelIndex;
+    public TextMeshProUGUI trashText;
     private bool scored = false;
     public bool exitApp = false;
     public bool freeplay = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if(trashText != null){
+        if (exitApp)
+        {
+            trashText.text ="Exit Game?";
+        } else
+        {
+            trashText.text ="Exit level?";
+        }}
     }
 
     // Update is called once per frame

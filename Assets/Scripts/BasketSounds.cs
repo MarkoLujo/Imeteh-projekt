@@ -6,6 +6,7 @@ public class BasketSounds : MonoBehaviour
 {
     private AudioSource audioSource;
     public AudioClip scoreSound;
+    public ParticleSystem scoreParticles; 
     public AudioClip swishSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -25,8 +26,11 @@ public class BasketSounds : MonoBehaviour
     }
     IEnumerator PlayScore(){
         yield return new WaitForSeconds(0.10f);
-        audioSource.PlayOneShot(scoreSound);   
-    }
+        audioSource.PlayOneShot(scoreSound);
+        if (scoreParticles != null){
+            scoreParticles.Play();
+        }
 
-    // Update is called once per frame
+    // Update is called once per frame}
+    }
 }

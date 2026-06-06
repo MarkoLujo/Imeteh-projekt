@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 0
+  trashText: {fileID: 540567428735430472}
   exitApp: 0
   freeplay: 1
 --- !u!1 &3981392477081848144
@@ -272,7 +273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35.1, y: -8.6}
+  m_AnchoredPosition: {x: 1.8, y: -8.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7513297909287924702
@@ -303,7 +304,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit?
+  m_text: Exit level?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
   m_sharedMaterial: {fileID: -3096865648701443885, guid: 036972c4a7ebb554a9916d09786a0c70, type: 2}
