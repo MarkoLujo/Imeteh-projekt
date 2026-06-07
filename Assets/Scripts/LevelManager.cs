@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour
     public float popupTime = 0;
     public bool permanentPopup = false;
     Vector3 popupFinalScale;
+    Vector3 popupFront;
 
     public GameObject mainCamera;
     public OVRCameraRig mainCamRig;
@@ -67,15 +68,13 @@ public class LevelManager : MonoBehaviour
         LoadFreeplay();
 
         StartCoroutine(ShowStartPopups());
-
-        // Todo nakon nekog vremena pokaži popupove za postavljanje koša, lopte i izbor levela
     }
 
     private IEnumerator ShowStartPopups() { 
 
         yield return new WaitForSeconds(6);
         if (hoopManager.spawnedBasket == null) {
-            ShowPopup("Pritisni [B] za postavljanje koša!", 1, true);
+            ShowPopup("Pritisni [B] za postavljanje koša!", 0.6f, true);
         }
         while (hoopManager.spawnedBasket == null) { 
             yield return new WaitForSeconds(0.5f);
@@ -84,7 +83,7 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(4);
         if (ballManager.currentBall == null) {
-            ShowPopup("Pritisni [A] za dobivanje lopte", 1, true);
+            ShowPopup("Pritisni [A] za dobivanje lopte", 0.6f, true);
         }
         while (ballManager.currentBall == null) { 
             yield return new WaitForSeconds(0.5f);
@@ -92,8 +91,8 @@ public class LevelManager : MonoBehaviour
         permanentPopup = false;
 
         yield return new WaitForSeconds(4);
-        if (mainUIObject != null){
-            ShowPopup("Za prikaz menija i levela pritisni postavke na lijevom kontroleru", 1, true);
+        if (mainUIObject == null){
+            ShowPopup("Za prikaz menija i levela pritisni postavke na lijevom kontroleru", 0.6f, true);
         }
         while (mainUIObject == null) { 
             yield return new WaitForSeconds(0.5f);
@@ -105,9 +104,9 @@ public class LevelManager : MonoBehaviour
         Destroy(popupObject);
         Transform eyePos = mainCamRig.centerEyeAnchor;
         popupObject = Instantiate(popupPrefab, eyePos.position, eyePos.rotation);
-        popupObject.transform.eulerAngles = new Vector3(0, popupObject.transform.eulerAngles.y, 0);
-
-        popupObject.transform.position += eyePos.forward * 0.6f + eyePos.up * -0.2f;
+        popupObject.transform.eulerAngles = new Vector3(20, popupObject.transform.eulerAngles.y, 0);
+        popupFront = eyePos.forward * 0.6f + eyePos.up * -0.25f;
+        popupObject.transform.position += popupFront;
 
         popupObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
         popupTime = time;
@@ -151,20 +150,18 @@ public class LevelManager : MonoBehaviour
             }
             else {
                 // Todo možda neka više fancy animacija
-                if (popupTime <= 1 && !permanentPopup) {
+                if (popupTime <= 0.6 && !permanentPopup) {
                     popupObject.transform.localScale *= 0.91f;
                 }
                 else {
-                    popupObject.transform.localScale = popupObject.transform.localScale * 0.91f + popupFinalScale * 0.09f;
+                    popupObject.transform.localScale = popupObject.transform.localScale * 0.85f + popupFinalScale * 0.15f;
                 }
                 if(!permanentPopup) popupTime -= Time.deltaTime;
 
                 // Da se pomiče zajedno s kamerom
                 Transform centerEyePos = mainCamera.GetComponent<OVRCameraRig>().centerEyeAnchor;
-                popupObject.transform.position = popupObject.transform.position * 0.75f + centerEyePos.position * 0.25f;
-                
-                //popupObject.transform.rotation = Quaternion.Slerp(popupObject.transform.rotation, centerEyePos.rotation, 0.25f);
-                
+                popupObject.transform.position = popupObject.transform.position * 0.75f + (centerEyePos.position + popupFront) * 0.25f;
+
                 
             }
         }
@@ -225,9 +222,9 @@ public class LevelManager : MonoBehaviour
 
             // Todo nekako napravit da se one zrake iz kontrolera pojavljuju samo kad je ui aktivan
             mainUIObject = Instantiate(mainUIPrefab, eyePos.position, eyePos.rotation);
-            mainUIObject.transform.SetParent(null);
-            mainUIObject.transform.position = new Vector3(mainUIObject.transform.position.x, 0, mainUIObject.transform.position.z) + eyePos.forward * 0.6f + eyePos.up * 0.8f; ;
             mainUIObject.transform.eulerAngles = new Vector3(0, mainUIObject.transform.eulerAngles.y, 0);
+            mainUIObject.transform.position += eyePos.right * -0.6f + eyePos.up * -0.1f;
+            mainUIObject.transform.Rotate(Vector3.up, -90);
 
             UIcontrol = mainUIObject.GetComponent<MainUIControl>();
             UIcontrol.showMainUI();
