@@ -2,6 +2,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct Requirements { 
@@ -19,14 +20,21 @@ public struct Level {
     public bool locked;
 }
 
+[System.Serializable]
+public struct FreeplayObject { 
+    public GameObject gameObject;
+    public string name;
+    public Sprite preview;
+}
+
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
 
 
     public Level[] levels;
-    public GameObject[] freeplayBalls;
-    public GameObject[] freeplayBaskets;
+    public FreeplayObject[] freeplayBalls;
+    public FreeplayObject[] freeplayBaskets;
     public BallCreateAndReset ballManager;
     public HoopSetAndCreate hoopManager;
     public SceneStats sceneStats;
@@ -129,11 +137,11 @@ public class LevelManager : MonoBehaviour
     public void uiButtonClick(int index) {
 
         if (UIcontrol.ballUI.activeSelf) { 
-            ballManager.ballPrefab = freeplayBalls[index];
+            ballManager.ballPrefab = freeplayBalls[index].gameObject;
             ballManager.DeleteBall();
         }
         else{ // Basket
-            hoopManager.basketPrefab = freeplayBaskets[index];
+            hoopManager.basketPrefab = freeplayBaskets[index].gameObject;
             hoopManager.UpdateBasket();
         }
     }
@@ -256,13 +264,14 @@ public class LevelManager : MonoBehaviour
             UIcontrol = mainUIObject.GetComponent<MainUIControl>();
             UIcontrol.showMainUI();
 
-            // TODO dodat neke UI slike i/ili opis lopta, levela i koševa na gumbima
             for (int i = 0; i < freeplayBalls.Length; i++)
             {
                 GameObject newButton = Instantiate(buttonTemplate, UIcontrol.ballUI.transform);
                 MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
                 buttonScript.index = i;
                 buttonScript.manager = this;
+                newButton.transform.GetChild(0).GetComponent<Image>().sprite = freeplayBalls[i].preview;
+                newButton.transform.GetChild(1).GetComponent<Text>().text = freeplayBalls[i].name;
             }
 
             for (int i = 0; i < freeplayBaskets.Length; i++)
@@ -271,6 +280,8 @@ public class LevelManager : MonoBehaviour
                 MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
                 buttonScript.index = i;
                 buttonScript.manager = this;
+                newButton.transform.GetChild(0).GetComponent<Image>().sprite = freeplayBaskets[i].preview;
+                newButton.transform.GetChild(1).GetComponent<Text>().text = freeplayBaskets[i].name;
             }
         }
         else {
@@ -297,10 +308,10 @@ public class LevelManager : MonoBehaviour
         isFreeplay = true;
         HideUI();
 
-        ballManager.ballPrefab = freeplayBalls[0];
+        ballManager.ballPrefab = freeplayBalls[0].gameObject;
         ballManager.DeleteBall();
 
-        hoopManager.basketPrefab = freeplayBaskets[0];
+        hoopManager.basketPrefab = freeplayBaskets[0].gameObject;
         hoopManager.UpdateBasket();
     }
 
@@ -312,7 +323,6 @@ public class LevelManager : MonoBehaviour
 
             // Ako je level gotov
             if (sceneStats.points >= currentLevel.goal.score && (sceneStats.timer <= currentLevel.goal.timeLimit || currentLevel.goal.timeLimit <= 0)) {
-                // TODO neka animacija
 
                 if (currentLevelIndex < levels.Length-1) { 
                     currentLevelIndex++;
