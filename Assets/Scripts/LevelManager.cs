@@ -216,22 +216,6 @@ public class LevelManager : MonoBehaviour
         levelSelectBaskets.transform.position = new Vector3(levelSelectBaskets.transform.position.x, 0, levelSelectBaskets.transform.position.z);
         levelSelectBaskets.transform.eulerAngles = new Vector3(0, levelSelectBaskets.transform.eulerAngles.y, 0);
         levelSelectBaskets.transform.Rotate(Vector3.up, -90);
-
-
-        for (int i = 0; i < 3; i++) { 
-            Transform levelBasket = levelSelectBaskets.transform.GetChild(i);
-            if (levelAt + i >= levels.Length) { 
-                levelBasket.gameObject.SetActive(false);
-            }
-            else{
-                levelBasket.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Level " + (levelAt + i + 1).ToString();
-                levelBasket.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().levelIndex = levelAt + i;
-                if (levels[levelAt+i].locked) { 
-                
-                }
-            }
-
-        }
     
     }
 
@@ -332,6 +316,7 @@ public class LevelManager : MonoBehaviour
 
                 if (currentLevelIndex < levels.Length-1) { 
                     currentLevelIndex++;
+                    levels[currentLevelIndex].locked = false;
                     LoadLevel(currentLevelIndex);
                 }
                 else{

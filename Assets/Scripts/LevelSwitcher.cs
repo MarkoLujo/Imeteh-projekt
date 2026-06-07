@@ -5,6 +5,7 @@ public class LevelSwitcher: MonoBehaviour
 {
     public BasketLowerDetectorLoadLevel[] levelColl; 
     public TextMeshProUGUI[] levelName;
+    public GameObject[] levelBlock;
 
     private int currentPage = 0;
 
@@ -30,10 +31,16 @@ public class LevelSwitcher: MonoBehaviour
         int baseLevel = currentPage * 3;
 
         for (int i = 0; i < 3; i++) {
-            int levelNumber = baseLevel + i + 1;
+            int levelNumber = baseLevel + i;
             if(levelColl!=null && levelName!=null){
-            levelName[i].text = "Level " + levelNumber;
+            levelName[i].text = "Level " + (levelNumber + 1);
             levelColl[i].levelIndex = levelNumber;
+            if (LevelManager.instance.levels[levelNumber].locked){
+                    levelBlock[i].SetActive(true);
+                }
+            else{
+                    levelBlock[i].SetActive(false);
+                }
             }
         }
     }
