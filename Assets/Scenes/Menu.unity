@@ -3571,6 +3571,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelSelect
       objectReference: {fileID: 0}
+    - target: {fileID: 5258700745501114540, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoRight
+      objectReference: {fileID: 0}
     - target: {fileID: 5794034834298752286, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.83
@@ -3610,6 +3614,18 @@ PrefabInstance:
     - target: {fileID: 5794034834298752286, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324079370961277777, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
+      propertyPath: resetObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324079370961277777, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
+      propertyPath: 'resetObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6555397756816869852}
+    - target: {fileID: 8946518670833569475, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoLeft
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
