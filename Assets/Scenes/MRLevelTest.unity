@@ -412,18 +412,28 @@ MonoBehaviour:
       score: 3
       timeLimit: -1
     title: 
+    locked: 0
   - basketPrefab: {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: 70b29d9dd3d04df418e9789f014dcfcd, type: 3}
     goal:
       score: 3
       timeLimit: -1
     title: 
+    locked: 0
   - basketPrefab: {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
     goal:
       score: 3
       timeLimit: -1
     title: 
+    locked: 0
+  - basketPrefab: {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
+    ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
+    goal:
+      score: 3
+      timeLimit: -1
+    title: 
+    locked: 0
   freeplayBalls:
   - {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
   - {fileID: 4408173820112942473, guid: 1454e64e015b24649b49cc0cb44c665d, type: 3}
@@ -435,6 +445,7 @@ MonoBehaviour:
   ballManager: {fileID: 1538719304}
   hoopManager: {fileID: 861201953}
   sceneStats: {fileID: 794583062}
+  levelAt: 0
   levelSelectBasketPrefabs: {fileID: 1546598353563035920, guid: f09cfca5d82dfd24b8e33b249b007aff, type: 3}
   levelSelectBaskets: {fileID: 0}
   trashPrefab: {fileID: 9033313144048774369, guid: 9267d65fd420d6445a65acb963e2fe8a, type: 3}
@@ -442,6 +453,7 @@ MonoBehaviour:
   popupPrefab: {fileID: 3693192114082676249, guid: e36feb909069d02468fcd7cdf82b7cef, type: 3}
   popupObject: {fileID: 0}
   popupTime: 0
+  permanentPopup: 0
   mainCamera: {fileID: 0}
   mainCamRig: {fileID: 0}
   mainUIPrefab: {fileID: 3896340198349204923, guid: a7f7936d49ad7e147bf8a726baf035fc, type: 3}

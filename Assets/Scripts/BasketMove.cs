@@ -15,11 +15,7 @@ public class BasketMove : MonoBehaviour
     void Update()
     {
         float v = delta * Mathf.Sin (Time.time * speed);
-        transform.position = startPos + transform.forward * v;
-    }
-
-    public void OnDestroy(){ // Todo, ovako ne radi
-        transform.position = startPos;
+        transform.position = startPos + transform.right * v;
     }
 
 }

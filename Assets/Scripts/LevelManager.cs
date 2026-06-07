@@ -16,6 +16,7 @@ public struct Level {
     public GameObject ballPrefab;
     public Requirements goal;
     public string title;
+    public bool locked;
 }
 
 public class LevelManager : MonoBehaviour
@@ -30,10 +31,15 @@ public class LevelManager : MonoBehaviour
     public HoopSetAndCreate hoopManager;
     public SceneStats sceneStats;
 
+    public int levelAt = 0;
 
 
     public GameObject levelSelectBasketPrefabs;
     public GameObject levelSelectBaskets;
+    Vector3 levelSelectPos;
+    Quaternion levelSelectRot;
+    Vector3 levelSelectFwd;
+
 
     public GameObject trashPrefab;
     public GameObject trash;
@@ -52,6 +58,7 @@ public class LevelManager : MonoBehaviour
 
     public GameObject mainUIPrefab;
     private GameObject mainUIObject;
+    bool uiSpawnedAtLeastOnce = false;
     MainUIControl UIcontrol;
     public GameObject buttonTemplate;
 
@@ -65,6 +72,7 @@ public class LevelManager : MonoBehaviour
         instance = this;
         mainCamera = GameObject.FindGameObjectWithTag("Player");
         mainCamRig = mainCamera.GetComponent<OVRCameraRig>();
+        uiSpawnedAtLeastOnce = false;
         LoadFreeplay();
 
         StartCoroutine(ShowStartPopups());
@@ -91,10 +99,10 @@ public class LevelManager : MonoBehaviour
         permanentPopup = false;
 
         yield return new WaitForSeconds(4);
-        if (mainUIObject == null){
+        if (!uiSpawnedAtLeastOnce){
             ShowPopup("Za prikaz menija i levela pritisni postavke na lijevom kontroleru", 0.6f, true);
         }
-        while (mainUIObject == null) { 
+        while (uiSpawnedAtLeastOnce) { 
             yield return new WaitForSeconds(0.5f);
         }
         permanentPopup = false;
@@ -192,20 +200,55 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    public void ChangeLevels(bool back) { 
+        if (back) levelAt -= 3;
+        else levelAt += 3;
+        if (levelAt < 0) levelAt = 0;
+        if (levelAt >= levels.Length) levelAt = levels.Length - 1;
+        SpawnLevelSelect();
+    }
+
+    
+    public void SpawnLevelSelect() { 
+        Destroy(levelSelectBaskets);
+
+        levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, levelSelectPos + levelSelectFwd * 1.2f, levelSelectRot);
+        levelSelectBaskets.transform.position = new Vector3(levelSelectBaskets.transform.position.x, 0, levelSelectBaskets.transform.position.z);
+        levelSelectBaskets.transform.eulerAngles = new Vector3(0, levelSelectBaskets.transform.eulerAngles.y, 0);
+        levelSelectBaskets.transform.Rotate(Vector3.up, -90);
+
+
+        for (int i = 0; i < 3; i++) { 
+            Transform levelBasket = levelSelectBaskets.transform.GetChild(i);
+            if (levelAt + i >= levels.Length) { 
+                levelBasket.gameObject.SetActive(false);
+            }
+            else{
+                levelBasket.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Level " + (levelAt + i + 1).ToString();
+                levelBasket.GetChild(1).GetComponent<BasketLowerDetectorLoadLevel>().levelIndex = levelAt + i;
+                if (levels[levelAt+i].locked) { 
+                
+                }
+            }
+
+        }
+    
+    }
+
     public void ShowUI() {
         HideUI();
+        uiSpawnedAtLeastOnce = true;
 
         Transform eyePos = mainCamRig.centerEyeAnchor;
+        levelSelectPos = eyePos.position;
+        levelSelectRot = eyePos.rotation;
+        levelSelectFwd = eyePos.forward;
 
         if (isFreeplay)
         {
             if (hoopManager.spawnedBasket != null && !hoopManager.isPlacing)
             {
-                levelSelectBaskets = Instantiate(levelSelectBasketPrefabs, eyePos);
-                //levelSelectBaskets.transform.position += new Vector3(-1,1,0);
-                levelSelectBaskets.transform.SetParent(null);
-                levelSelectBaskets.transform.position = new Vector3(levelSelectBaskets.transform.position.x, 0, levelSelectBaskets.transform.position.z);
-                levelSelectBaskets.transform.eulerAngles = new Vector3(0, levelSelectBaskets.transform.eulerAngles.y, 0);
+                SpawnLevelSelect();
             }
             else {
                 ShowPopup("Prvo postavi koš za pristup levelima!", 5, false);
@@ -223,8 +266,8 @@ public class LevelManager : MonoBehaviour
             // Todo nekako napravit da se one zrake iz kontrolera pojavljuju samo kad je ui aktivan
             mainUIObject = Instantiate(mainUIPrefab, eyePos.position, eyePos.rotation);
             mainUIObject.transform.eulerAngles = new Vector3(0, mainUIObject.transform.eulerAngles.y, 0);
-            mainUIObject.transform.position += eyePos.right * -0.6f + eyePos.up * -0.1f;
-            mainUIObject.transform.Rotate(Vector3.up, -90);
+            mainUIObject.transform.position += eyePos.right * -0.7f + eyePos.up * -0.1f;
+            mainUIObject.transform.Rotate(Vector3.up, -100);
 
             UIcontrol = mainUIObject.GetComponent<MainUIControl>();
             UIcontrol.showMainUI();
