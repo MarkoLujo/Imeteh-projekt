@@ -11,6 +11,8 @@ public class BasketLowerDetectorLoadLevel : MonoBehaviour
     private bool scored = false;
     public bool exitApp = false;
     public bool freeplay = false;
+    public BasketDetectorTop topDetector;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,7 +31,7 @@ public class BasketLowerDetectorLoadLevel : MonoBehaviour
         if (scored) {
             return;
         }
-        if (transform.parent.GetChild(0).GetComponent<BasketDetectorTop>().isActive && collider.CompareTag("Lopta")){
+        if (topDetector.isActive && collider.CompareTag("Lopta")){
              scored = true;
              StartCoroutine(ScoreSequence());
         }

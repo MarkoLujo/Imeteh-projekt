@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oculus.Interaction;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,7 @@ public struct Level {
     public GameObject ballPrefab;
     public Requirements goal;
     public string title;
+    public string subtitle;
     public bool locked;
 }
 
@@ -24,7 +26,7 @@ public struct Level {
 public struct FreeplayObject { 
     public GameObject gameObject;
     public string name;
-    public Sprite preview;
+    public Texture2D preview;
 }
 
 public class LevelManager : MonoBehaviour
@@ -70,6 +72,8 @@ public class LevelManager : MonoBehaviour
     MainUIControl UIcontrol;
     public GameObject buttonTemplate;
 
+    public GameObject titleUIPrefab;
+    private GameObject titleUIObject;
 
     public bool isFreeplay;
     public int currentLevelIndex;
@@ -83,6 +87,7 @@ public class LevelManager : MonoBehaviour
         uiSpawnedAtLeastOnce = false;
         LoadFreeplay();
 
+        StartCoroutine(ShowLevelTitle("Xtreme", "basketball", 3));
         StartCoroutine(ShowStartPopups());
     }
 
@@ -90,16 +95,16 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(6);
         if (hoopManager.spawnedBasket == null) {
-            ShowPopup("Pritisni [B] za postavljanje koša!", 0.6f, true);
+            ShowPopup("Press [B] to place the basket!", 0.6f, true);
         }
         while (hoopManager.spawnedBasket == null) { 
             yield return new WaitForSeconds(0.5f);
         }
         permanentPopup = false;
 
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2.7f);
         if (ballManager.currentBall == null) {
-            ShowPopup("Pritisni [A] za dobivanje lopte", 0.6f, true);
+            ShowPopup("Press [A] to summon the ball", 0.6f, true);
         }
         while (ballManager.currentBall == null) { 
             yield return new WaitForSeconds(0.5f);
@@ -108,9 +113,9 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(4);
         if (!uiSpawnedAtLeastOnce){
-            ShowPopup("Za prikaz menija i levela pritisni postavke na lijevom kontroleru", 0.6f, true);
+            ShowPopup("Press settings to show the level menu & freeplay options", 0.6f, true);
         }
-        while (uiSpawnedAtLeastOnce) { 
+        while (!uiSpawnedAtLeastOnce) { 
             yield return new WaitForSeconds(0.5f);
         }
         permanentPopup = false;
@@ -159,6 +164,13 @@ public class LevelManager : MonoBehaviour
             }
         }
 
+        Level currentLevel = levels[currentLevelIndex];
+        if (sceneStats.timer > currentLevel.goal.timeLimit && currentLevel.goal.timeLimit > 0) {
+            StartCoroutine(ShowLevelTitle("Out of time...", "", 2f));
+            LoadLevelDelay();
+            sceneStats.timer = -100000;
+        }
+
         if (popupObject != null)
         {
             if (popupTime <= 0){
@@ -182,17 +194,59 @@ public class LevelManager : MonoBehaviour
             }
         }
 
+        if (titleUIObject != null) {
+            Transform centerEyePos = mainCamera.GetComponent<OVRCameraRig>().centerEyeAnchor;
+            titleUIObject.transform.position = titleUIObject.transform.position * 0.75f + (centerEyePos.position + centerEyePos.forward * 0.9f) * 0.25f;
+            titleUIObject.transform.rotation = Quaternion.Slerp(titleUIObject.transform.rotation, centerEyePos.rotation, 0.25f);
+
+
+        }
+
     }
 
+    IEnumerator ShowLevelTitle(string titleString, string subTitleString, float duration) {
+        Destroy(titleUIObject);
+        Transform centerEyePos = mainCamera.GetComponent<OVRCameraRig>().centerEyeAnchor;
+        titleUIObject = Instantiate(titleUIPrefab, centerEyePos.position + centerEyePos.forward * 0.7f, centerEyePos.rotation);
 
+        Transform titleText = titleUIObject.transform.GetChild(0);
+        Transform subtitleText = titleUIObject.transform.GetChild(1);
+
+        titleText.GetComponent<TextMeshProUGUI>().text = titleString;
+        subtitleText.GetComponent<TextMeshProUGUI>().text = subTitleString;
+
+
+        titleText.localPosition = new Vector3(1200, titleText.localPosition.y, titleText.localPosition.z);
+        subtitleText.localPosition = new Vector3(-1200, subtitleText.localPosition.y, subtitleText.localPosition.z);
+
+        for (int i = 0; i < 75; i++) {
+            titleText.localPosition += Vector3.left * 16f;
+            subtitleText.localPosition += Vector3.right * 16f;
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        for (int i = 0; i < 75; i++)
+        {
+            titleText.localPosition += Vector3.left * 16f;
+            subtitleText.localPosition += Vector3.right * 16f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        Destroy(titleUIObject);
+
+    }
 
     public void LoadLevel(int index) {
 
+
         if (hoopManager.spawnedBasket != null && !hoopManager.isPlacing) { 
+            
             isFreeplay = false;
             currentLevelIndex = index;
             HideUI();
 
+            StartCoroutine(ShowLevelTitle(levels[currentLevelIndex].title, levels[currentLevelIndex].subtitle, 5));
 
             Level newLevel = levels[index];
             ballManager.ballPrefab = newLevel.ballPrefab;
@@ -243,7 +297,7 @@ public class LevelManager : MonoBehaviour
                 SpawnLevelSelect();
             }
             else {
-                ShowPopup("Prvo postavi koš za pristup levelima!", 5, false);
+                ShowPopup("First place the basket to access levels!", 5, false);
             }
 
 
@@ -270,7 +324,7 @@ public class LevelManager : MonoBehaviour
                 MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
                 buttonScript.index = i;
                 buttonScript.manager = this;
-                newButton.transform.GetChild(0).GetComponent<Image>().sprite = freeplayBalls[i].preview;
+                newButton.transform.GetChild(0).GetComponent<Image>().sprite = Sprite.Create(freeplayBalls[i].preview, new Rect(0,0,512,512), new Vector2(256,256));
                 newButton.transform.GetChild(1).GetComponent<Text>().text = freeplayBalls[i].name;
             }
 
@@ -280,7 +334,7 @@ public class LevelManager : MonoBehaviour
                 MainButtonScript buttonScript = newButton.GetComponent<MainButtonScript>();
                 buttonScript.index = i;
                 buttonScript.manager = this;
-                newButton.transform.GetChild(0).GetComponent<Image>().sprite = freeplayBaskets[i].preview;
+                newButton.transform.GetChild(0).GetComponent<Image>().sprite = Sprite.Create(freeplayBaskets[i].preview, new Rect(0, 0, 512, 512), new Vector2(256, 256)); ;
                 newButton.transform.GetChild(1).GetComponent<Text>().text = freeplayBaskets[i].name;
             }
         }
@@ -316,6 +370,12 @@ public class LevelManager : MonoBehaviour
     }
 
 
+
+    private IEnumerator LoadLevelDelay() {
+        yield return new WaitForSeconds(2);
+        LoadLevel(currentLevelIndex);
+    }
+
     public void OnScore() {
         
         if (!isFreeplay) { 
@@ -324,15 +384,15 @@ public class LevelManager : MonoBehaviour
             // Ako je level gotov
             if (sceneStats.points >= currentLevel.goal.score && (sceneStats.timer <= currentLevel.goal.timeLimit || currentLevel.goal.timeLimit <= 0)) {
 
-                if (currentLevelIndex < levels.Length-1) { 
+                if (currentLevelIndex < levels.Length - 1) {
                     currentLevelIndex++;
                     levels[currentLevelIndex].locked = false;
-                    LoadLevel(currentLevelIndex);
+                    StartCoroutine(LoadLevelDelay());
                 }
-                else{
+                else {
                     LoadFreeplay();
                 }
-            
+
             }
         
         

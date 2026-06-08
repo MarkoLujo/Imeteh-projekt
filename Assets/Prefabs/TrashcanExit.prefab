@@ -172,6 +172,7 @@ MonoBehaviour:
   trashText: {fileID: 540567428735430472}
   exitApp: 0
   freeplay: 1
+  topDetector: {fileID: 6521374778576719840}
 --- !u!1 &3981392477081848144
 GameObject:
   m_ObjectHideFlags: 0

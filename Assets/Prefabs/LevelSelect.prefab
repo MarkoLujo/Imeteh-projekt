@@ -653,7 +653,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 147.1, y: -21}
+  m_AnchoredPosition: {x: 0, y: -21}
   m_SizeDelta: {x: 588.8, y: 94.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5025556527186355706
@@ -714,11 +714,11 @@ MonoBehaviour:
   m_fontSize: 100
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 100
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -828,6 +828,7 @@ MonoBehaviour:
   trashText: {fileID: 0}
   exitApp: 0
   freeplay: 0
+  topDetector: {fileID: 2602197037101203799}
 --- !u!82 &8952820138309243752
 AudioSource:
   m_ObjectHideFlags: 0
@@ -940,6 +941,7 @@ MonoBehaviour:
   scoreSound: {fileID: 8300000, guid: a57f0b76154f86645bb8161e4ff92333, type: 3}
   scoreParticles: {fileID: 0}
   swishSound: {fileID: 8300000, guid: 588a801f19d37bc40b30971d84d1ec15, type: 3}
+  topDetector: {fileID: 2602197037101203799}
 --- !u!1 &2547647498854871268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1109,7 @@ MonoBehaviour:
   trashText: {fileID: 0}
   exitApp: 0
   freeplay: 0
+  topDetector: {fileID: 8364497043979175961}
 --- !u!82 &8814421863049856150
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1219,6 +1222,7 @@ MonoBehaviour:
   scoreSound: {fileID: 8300000, guid: a57f0b76154f86645bb8161e4ff92333, type: 3}
   scoreParticles: {fileID: 0}
   swishSound: {fileID: 8300000, guid: 588a801f19d37bc40b30971d84d1ec15, type: 3}
+  topDetector: {fileID: 8364497043979175961}
 --- !u!1 &2945991954858247543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,7 +1394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 158.58, y: -47.4}
+  m_AnchoredPosition: {x: 0, y: -47.4}
   m_SizeDelta: {x: 588.8, y: 94.8}
   m_Pivot: {x: 0.5, y: 0.49999982}
 --- !u!222 &7977557186040327804
@@ -1451,11 +1455,11 @@ MonoBehaviour:
   m_fontSize: 100
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 100
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3308,7 +3312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 180, y: -47.4}
+  m_AnchoredPosition: {x: 0, y: -47.4}
   m_SizeDelta: {x: 588.8, y: 94.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8445740145328990774
@@ -3369,11 +3373,11 @@ MonoBehaviour:
   m_fontSize: 100
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 100
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3915,6 +3919,7 @@ MonoBehaviour:
   trashText: {fileID: 0}
   exitApp: 0
   freeplay: 0
+  topDetector: {fileID: 1033631398722456664}
 --- !u!82 &3521777014801664056
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4027,6 +4032,7 @@ MonoBehaviour:
   scoreSound: {fileID: 8300000, guid: a57f0b76154f86645bb8161e4ff92333, type: 3}
   scoreParticles: {fileID: 0}
   swishSound: {fileID: 8300000, guid: 588a801f19d37bc40b30971d84d1ec15, type: 3}
+  topDetector: {fileID: 1033631398722456664}
 --- !u!1 &9107813981011194451
 GameObject:
   m_ObjectHideFlags: 0

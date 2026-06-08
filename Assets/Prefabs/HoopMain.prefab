@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2745894231451448166
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8268183463623223518}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8268183463623223518
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2745894231451448166}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -3.0631962, y: 2.0708144, z: 0.13694572}
-  m_LocalScale: {x: 1.333333, y: 1.3333334, z: 1.333333}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3189015804409270029}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5325295602644891119
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6217fccb2f65b384eacd4003bae42f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topDetector: {fileID: 5602598636065890014}
 --- !u!82 &7169157673974048681
 AudioSource:
   m_ObjectHideFlags: 0
@@ -211,6 +181,7 @@ MonoBehaviour:
   scoreSound: {fileID: 8300000, guid: a57f0b76154f86645bb8161e4ff92333, type: 3}
   scoreParticles: {fileID: 1717249934260570361}
   swishSound: {fileID: 8300000, guid: 588a801f19d37bc40b30971d84d1ec15, type: 3}
+  topDetector: {fileID: 5602598636065890014}
 --- !u!1 &7011162893976623379
 GameObject:
   m_ObjectHideFlags: 0
@@ -5252,12 +5223,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d6ee54ccd79e7114fa2582159e788706, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 8268183463623223518}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d6ee54ccd79e7114fa2582159e788706, type: 3}
-      insertIndex: 1
       addedObject: {fileID: 761982736649635213}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d6ee54ccd79e7114fa2582159e788706, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 106361838417583128}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d6ee54ccd79e7114fa2582159e788706, type: 3}
       insertIndex: -1

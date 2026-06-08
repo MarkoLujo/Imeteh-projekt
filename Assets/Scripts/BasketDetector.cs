@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BasketDetector : MonoBehaviour
 {
+    public BasketDetectorTop topDetector;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -11,9 +12,12 @@ public class BasketDetector : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider) {
 
-        if (transform.parent.GetChild(0).GetComponent<BasketDetectorTop>().isActive && collider.CompareTag("Lopta")){
-            //SceneStats.instance.Score();
+        if (topDetector.isActive && collider.CompareTag("Lopta")){
+            SceneStats.instance.Score();
             Debug.Log("Score");
+            if (GetComponent<BasketSounds>() != null) {
+                GetComponent<BasketSounds>().PlayScoreSequence();
+            }
         }
     }
 }

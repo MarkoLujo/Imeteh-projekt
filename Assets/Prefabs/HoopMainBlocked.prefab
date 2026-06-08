@@ -5077,6 +5077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6217fccb2f65b384eacd4003bae42f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topDetector: {fileID: 5602598636065890014}
 --- !u!82 &2975032239011758694
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5189,6 +5190,7 @@ MonoBehaviour:
   scoreSound: {fileID: 8300000, guid: a57f0b76154f86645bb8161e4ff92333, type: 3}
   scoreParticles: {fileID: 583111675571774152}
   swishSound: {fileID: 8300000, guid: 588a801f19d37bc40b30971d84d1ec15, type: 3}
+  topDetector: {fileID: 5602598636065890014}
 --- !u!1 &5907934420275381460
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,21 +8,22 @@ public class BasketSounds : MonoBehaviour
     public AudioClip scoreSound;
     public ParticleSystem scoreParticles; 
     public AudioClip swishSound;
+    public BasketDetectorTop topDetector;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
-    void OnTriggerEnter(Collider col)
-    {
-        if(col.gameObject.tag == "Lopta"){
+
+    public void PlayScoreSequence() { 
+
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(swishSound);
-        if(transform.parent.GetChild(0).GetComponent<BasketDetectorTop>().isActive){
+        if(topDetector.isActive){
             StartCoroutine(PlayScore());
         }
-        }
+
     }
     IEnumerator PlayScore(){
         yield return new WaitForSeconds(0.10f);

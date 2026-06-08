@@ -33,7 +33,8 @@ public class LevelSwitcher: MonoBehaviour
         for (int i = 0; i < 3; i++) {
             int levelNumber = baseLevel + i;
             if(levelColl!=null && levelName!=null){
-            levelName[i].text = "Level " + (levelNumber + 1);
+            //levelName[i].text = "Level " + (levelNumber + 1);
+            levelName[i].text = LevelManager.instance.levels[levelNumber].title;
             levelColl[i].levelIndex = levelNumber;
             if (LevelManager.instance.levels[levelNumber].locked){
                     levelBlock[i].SetActive(true);

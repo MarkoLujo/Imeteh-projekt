@@ -411,51 +411,75 @@ MonoBehaviour:
     goal:
       score: 3
       timeLimit: -1
-    title: 
+    title: Level 1 - Training
+    subtitle: Score 3 points!
     locked: 0
   - basketPrefab: {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: 70b29d9dd3d04df418e9789f014dcfcd, type: 3}
     goal:
       score: 3
       timeLimit: -1
-    title: 
+    title: Level 2 - Gravity changed
+    subtitle: Score 3 points, dodge the asteroids!
     locked: 0
   - basketPrefab: {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
     goal:
       score: 3
-      timeLimit: -1
-    title: 
-    locked: 0
-  - basketPrefab: {fileID: 5992011367173358628, guid: a9c10948e14e2cb48884b04b89adbcad, type: 3}
-    ballPrefab: {fileID: 4408173820112942473, guid: 7caaefd1545b9254b9d49106e09ff44d, type: 3}
-    goal:
-      score: 3
-      timeLimit: -1
-    title: 
-    locked: 0
-  - basketPrefab: {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
-    ballPrefab: {fileID: 4408173820112942473, guid: eb38099f6e73a3c40ad906b157c61713, type: 3}
-    goal:
-      score: 3
-      timeLimit: -1
-    title: 
+      timeLimit: 180
+    title: Level 3 - Moving target
+    subtitle: Score 3 points in 3 minutes!
     locked: 0
   - basketPrefab: {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
+    ballPrefab: {fileID: 4408173820112942473, guid: eb38099f6e73a3c40ad906b157c61713, type: 3}
+    goal:
+      score: 4
+      timeLimit: 180
+    title: Level 4 - Rubber ball
+    subtitle: Score 4 points in 3 minutes, with a very bouncy ball.
+    locked: 0
+  - basketPrefab: {fileID: 2813193231336707511, guid: 7da2be4720daa7649ad096c5af8e7dce, type: 3}
     ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
     goal:
       score: 3
       timeLimit: -1
-    title: 
-    locked: 1
+    title: Level 5 - 2 hoops
+    subtitle: Get the ball trough 2 hoops at once! Score 3 points.
+    locked: 0
+  - basketPrefab: {fileID: 2813193231336707511, guid: 3412610f683c6ea4989436a357930a65, type: 3}
+    ballPrefab: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
+    goal:
+      score: 3
+      timeLimit: -1
+    title: Level 6 - ricochet
+    subtitle: Score 3 points! The Ball must bounce against an obstacle at least once
+    locked: 0
   freeplayBalls:
-  - {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
-  - {fileID: 4408173820112942473, guid: 1454e64e015b24649b49cc0cb44c665d, type: 3}
-  - {fileID: 4408173820112942473, guid: 70b29d9dd3d04df418e9789f014dcfcd, type: 3}
+  - gameObject: {fileID: 4408173820112942473, guid: e5828600399e18442b68bcd2651cf3db, type: 3}
+    name: Normal
+    preview: {fileID: 2800000, guid: 534e7b48e9b692f45b5d04bf4d111732, type: 3}
+  - gameObject: {fileID: 4408173820112942473, guid: 70b29d9dd3d04df418e9789f014dcfcd, type: 3}
+    name: Floating
+    preview: {fileID: 2800000, guid: b8a9bfdbdc596da40a455fece300cb78, type: 3}
+  - gameObject: {fileID: 4408173820112942473, guid: eb38099f6e73a3c40ad906b157c61713, type: 3}
+    name: Bouncy
+    preview: {fileID: 2800000, guid: 93e688eba3c0c094da6cd458e6144b49, type: 3}
   freeplayBaskets:
-  - {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
-  - {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
-  - {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
+  - gameObject: {fileID: 2813193231336707511, guid: 11137c79223b64c4f907cfa04ab6d7cd, type: 3}
+    name: Standard
+    preview: {fileID: 0}
+  - gameObject: {fileID: 2813193231336707511, guid: 8da60968bd12f2747b295fe53aebea56, type: 3}
+    name: Space
+    preview: {fileID: 0}
+  - gameObject: {fileID: 1836798419439229514, guid: db751c334b42b964f9b7d8880536d72c, type: 3}
+    name: Moving
+    preview: {fileID: 0}
+  - gameObject: {fileID: 2813193231336707511, guid: 7da2be4720daa7649ad096c5af8e7dce, type: 3}
+    name: Double hoop
+    preview: {fileID: 0}
+  - gameObject: {fileID: 2813193231336707511, guid: 3412610f683c6ea4989436a357930a65, type: 3}
+    name: Blocked
+    preview: {fileID: 0}
   ballManager: {fileID: 1538719304}
   hoopManager: {fileID: 861201953}
   sceneStats: {fileID: 794583062}
@@ -472,6 +496,7 @@ MonoBehaviour:
   mainCamRig: {fileID: 0}
   mainUIPrefab: {fileID: 3896340198349204923, guid: a7f7936d49ad7e147bf8a726baf035fc, type: 3}
   buttonTemplate: {fileID: 6962244841375797390, guid: ab28f66dff923ea43b76e2a8acd4ed0b, type: 3}
+  titleUIPrefab: {fileID: 3693192114082676249, guid: db988ffed8795a94ca0f753b9318bf94, type: 3}
   isFreeplay: 1
   currentLevelIndex: 0
   uiActive: 0
