@@ -104,7 +104,7 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(2.7f);
         if (ballManager.currentBall == null) {
-            ShowPopup("Press [A] to summon the ball", 0.6f, true);
+            ShowPopup("Press [A] to summon the ball, and [Grip] to grab!", 0.6f, true);
         }
         while (ballManager.currentBall == null) { 
             yield return new WaitForSeconds(0.5f);
